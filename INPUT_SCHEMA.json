@@ -7,21 +7,21 @@
     "location": {
       "title": "Locations",
       "type": "array",
-      "placeholderValue": ["aurburn", "roanoke"],
+      "placeholderValue": "aurburn",
       "description": "The list of locations you would like to search",
       "editor": "stringList"
     },
     "category": {
       "title": "Categories",
       "type": "array",
-      "placeholderValue": ["ggg", "rrr"],
+      "placeholderValue": "ggg",
       "description": "The list of categories you would like to search",
       "editor": "stringList"
     },
     "query": {
       "title": "Query - Search Terms",
       "type": "array",
-      "placeholderValue": ["test", "exam"],
+      "placeholderValue": "exam",
       "description": "The list of Search Terms you would like to filter by",
       "editor": "stringList"
     }
