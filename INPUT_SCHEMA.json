@@ -1,20 +1,26 @@
 {
-  "title": "Add two integers",
+  "title": "Provide Craigslist Query",
   "type": "object",
   "schemaVersion": 1,
   "properties": {
-    "firstNumber": {
-      "title": "First integer",
-      "type": "integer",
-      "description": "The number you want to add to the second number.",
-      "editor": "number"
+    "location": {
+      "title": "Locations",
+      "type": "string[]",
+      "description": "The list of locations you would like to search",
+      "editor": "string[]"
     },
-    "secondNumber": {
-      "title": "Second integer",
-      "type": "integer",
-      "description": "The number you want to add to the first number.",
-      "editor": "number"
+    "category": {
+      "title": "Categories",
+      "type": "string[]",
+      "description": "The list of categories you would like to search",
+      "editor": "string[]"
+    },
+    "query": {
+      "title": "Query - Search Terms",
+      "type": "string[]",
+      "description": "The list of Search Terms you would like to filter by",
+      "editor": "string[]"
     }
   },
-  "required": ["firstNumber", "secondNumber"]
+  "required": ["location", "category", "query"]
 }
