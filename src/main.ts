@@ -5,8 +5,9 @@
 import { Actor } from 'apify';
 
 interface InputSchema {
-    firstNumber: number;
-    secondNumber: number;
+    location: string[]
+    category: string[]
+    query: string[]
 }
 
 await Actor.init()
@@ -14,22 +15,15 @@ await Actor.init()
 console.log('Loading input');
 // Structure of input is defined in INPUT_SCHEMA.json.
 const input = await Actor.getInput<InputSchema>();
-console.log('First number: ', input?.firstNumber);
-console.log('Second number: ', input?.secondNumber);
-
-// 👉 Complete the code so that result is
-// the sum of firstNumber and secondNumber.
-// 👇👇👇👇👇👇👇👇👇👇
-const result = null;
-// 👆👆👆👆👆👆👆👆👆👆
-
-console.log('The result is: ', result);
+console.log('Location: ', input?.location);
+console.log('Category: ', input?.category);
+console.log('Query: ', input?.query);
 
 // Structure of output is defined in .actor/actor.json
 await Actor.pushData({
-    firstNumber: input?.firstNumber,
-    secondNumber: input?.secondNumber,
-    sum: result,
+    location: input?.location,
+    category: input?.category,
+    query: input?.query,
 });
 
 await Actor.exit();
