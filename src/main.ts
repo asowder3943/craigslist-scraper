@@ -3,8 +3,8 @@
 
 // For more information, see https://sdk.apify.com/
 import { Actor } from 'apify';
-import { CraigslistCategories } from './category.js'
-import { CraigslistLocations } from './location.js'
+import { CraigslistCategories } from './category'
+import { CraigslistLocations } from './location'
 import { strict as assert } from 'assert'
 
 
@@ -12,7 +12,7 @@ interface InputSchema {
     location: string[]
     category: string[]
     query: string[]
-}
+  }
 
 await Actor.init()
 
@@ -21,11 +21,11 @@ console.log('Loading input');
 const input = await Actor.getInput<InputSchema>();
 
 for (var _loc in input!.location){
-    assert(CraigslistLocations.filter(e => _loc === e.url_part).length > 0, "At least one of the provided locations does not match supported locations see <Not Implemented> for details.")
+    assert(CraigslistLocations.filter(e => input!.location[_loc] === e.url_part).length > 0, "At least one of the provided locations does not match supported locations see <Not Implemented> for details.")
 }
 
 for (var _cat in input!.category){
-    assert(CraigslistCategories.filter(e => _cat === e.url_part).length > 0, "At least one of the provided categories does not match supported locations see <Not Implemented> for details.")
+    assert(CraigslistCategories.filter(e => input!.category[_cat] === e.url_part).length > 0, "At least one of the provided categories does not match supported locations see <Not Implemented> for details.")
 }
 
 console.log('Location: ', input!.location);
