@@ -7,15 +7,15 @@
     "storages": {
         "dataset": {
             "actorSpecification": 1,
-            "title": "Hello World",
+            "title": "posts",
             "views": {
-                "sums": {
-                    "title": "Hello World",
+                "posts": {
+                    "title": "posts",
                     "transformation": {
                         "fields": [
-                            "location",
-                            "category",
-                            "query"
+                            "url",
+                            "title",
+                            "date"
                         ]
                     },
                     "display": {
@@ -23,17 +23,17 @@
                         "columns": [
                             {
                                 "label": "location",
-                                "format": "array",
+                                "format": "string",
                                 "field": "location"
                             },
                             {
                                 "label": "category",
-                                "format": "array",
+                                "format": "string",
                                 "field": "category"
                             },
                             {
                                 "label": "query",
-                                "format": "array",
+                                "format": "string",
                                 "field": "query"
                             }
                         ]
