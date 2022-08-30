@@ -7,14 +7,14 @@
     "location": {
       "title": "Locations",
       "type": "array",
-      "prefill": "aurburn",
+      "prefill": ["aurburn"],
       "description": "The list of locations you would like to search",
       "editor": "stringList"
     },
     "category": {
       "title": "Categories",
       "type": "array",
-      "prefill": "ggg",
+      "prefill": ["ggg"],
       "description": "The list of categories you would like to search",
       "editor": "stringList"
     },
