@@ -1,26 +1,34 @@
 {
   "title": "Provide Craigslist Query",
+  "description": "To filter out irrelevant results, limit the scope of your search by providing the list of locations, categories, and search terms you are interested in.",
   "type": "object",
   "schemaVersion": 1,
   "properties": {
     "location": {
       "title": "Locations",
-      "type": "string[]",
+      "type": "array",
+      "placeholderValue": ["aurburn", "roanoke"],
       "description": "The list of locations you would like to search",
-      "editor": "string[]"
+      "editor": "stringList"
     },
     "category": {
       "title": "Categories",
-      "type": "string[]",
+      "type": "array",
+      "placeholderValue": ["ggg", "rrr"],
       "description": "The list of categories you would like to search",
-      "editor": "string[]"
+      "editor": "stringList"
     },
     "query": {
       "title": "Query - Search Terms",
-      "type": "string[]",
+      "type": "array",
+      "placeholderValue": ["test", "exam"],
       "description": "The list of Search Terms you would like to filter by",
-      "editor": "string[]"
+      "editor": "stringList"
     }
   },
-  "required": ["location", "category", "query"]
+  "required": [
+    "location",
+    "category",
+    "query"
+  ]
 }
