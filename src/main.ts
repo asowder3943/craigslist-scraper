@@ -3,7 +3,7 @@
 
 // For more information, see https://sdk.apify.com/
 import { Actor } from 'apify';
-import { buildRequestUrls, CraigslistSearchInput} from "./craigslist";
+import { buildRequestUrls, CraigslistSearchInput} from "./craigslist.js";
 
 interface InputSchema {
     location: string[] | undefined

@@ -1,5 +1,5 @@
-import { CraigslistLocations } from "./location";
-import { CraigslistCategories } from "./category";
+import { CraigslistLocations } from "./location.js";
+import { CraigslistCategories } from "./category.js";
 import { strict as assert } from "assert";
 
 export type CraigslistSearchInput = {
