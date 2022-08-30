@@ -7,28 +7,23 @@
     "location": {
       "title": "Locations",
       "type": "array",
-      "placeholderValue": "aurburn",
+      "prefill": "aurburn",
       "description": "The list of locations you would like to search",
       "editor": "stringList"
     },
     "category": {
       "title": "Categories",
       "type": "array",
-      "placeholderValue": "ggg",
+      "prefill": "ggg",
       "description": "The list of categories you would like to search",
       "editor": "stringList"
     },
     "query": {
       "title": "Query - Search Terms",
       "type": "array",
-      "placeholderValue": "test",
+      "prefill": ["test","exam"],
       "description": "The list of Search Terms you would like to filter by",
       "editor": "stringList"
     }
-  },
-  "required": [
-    "location",
-    "category",
-    "query"
-  ]
+  }
 }

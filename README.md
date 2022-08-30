@@ -3,9 +3,9 @@
 # input Schema:
 ```js
 interface InputSchema {
-    location: string[]
-    category: string[]
-    query: string[]
+    location: string[] | undefined
+    category: string[] | undefined
+    query: string[] | undefined
 }
 ```
 
