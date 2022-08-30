@@ -3,34 +3,21 @@
 
 // For more information, see https://sdk.apify.com/
 import { Actor } from 'apify';
-import { CraigslistCategories } from './category'
-import { CraigslistLocations } from './location'
-import { strict as assert } from 'assert'
-
+import { buildRequestUrls, CraigslistSearchInput} from "./craigslist";
 
 interface InputSchema {
-    location: string[]
-    category: string[]
-    query: string[]
-  }
+    location: string[] | undefined
+    category: string[] | undefined
+    query: string[] | undefined
+}
 
 await Actor.init()
 
 console.log('Loading input');
 // Structure of input is defined in INPUT_SCHEMA.json.
-const input = await Actor.getInput<InputSchema>();
+const input = await Actor.getInput<InputSchema>() as CraigslistSearchInput;
 
-for (var _loc in input!.location){
-    assert(CraigslistLocations.filter(e => input!.location[_loc] === e.url_part).length > 0, "At least one of the provided locations does not match supported locations see <Not Implemented> for details.")
-}
-
-for (var _cat in input!.category){
-    assert(CraigslistCategories.filter(e => input!.category[_cat] === e.url_part).length > 0, "At least one of the provided categories does not match supported locations see <Not Implemented> for details.")
-}
-
-console.log('Location: ', input!.location);
-console.log('Category: ', input!.category);
-console.log('Query: ', input!.query);
+console.info(buildRequestUrls(input))
 
 // Structure of output is defined in .actor/actor.json
 await Actor.pushData({
