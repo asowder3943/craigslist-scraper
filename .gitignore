@@ -1,8 +1,5 @@
 node_modules/
 dist/
 package-lock.json
-src-dev/
-tsconfig.tsbuildinfo
 .prettierrc
-package-dev.json
-tsconfig-dev.json
+storage/
