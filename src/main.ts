@@ -15,15 +15,15 @@ await Actor.init()
 console.log('Loading input');
 // Structure of input is defined in INPUT_SCHEMA.json.
 const input = await Actor.getInput<InputSchema>();
-console.log('Location: ', input?.location);
-console.log('Category: ', input?.category);
-console.log('Query: ', input?.query);
+console.log('Location: ', input!.location);
+console.log('Category: ', input!.category);
+console.log('Query: ', input!.query);
 
 // Structure of output is defined in .actor/actor.json
 await Actor.pushData({
-    location: input?.location,
-    category: input?.category,
-    query: input?.query,
+    location: input!.location,
+    category: input!.category,
+    query: input!.query,
 });
 
 await Actor.exit();

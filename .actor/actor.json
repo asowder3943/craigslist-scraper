@@ -1,40 +1,40 @@
 {
     "actorSpecification": 1,
-    "name": "getting-started-actor",
-    "title": "Getting Started Actor",
-    "description": "Adds two integers.",
+    "name": "apify-craigslist",
+    "title": "Actor for gathering data from Craigslist",
+    "description": "Displays current input (Hello World)",
     "version": "0.0.1",
     "storages": {
         "dataset": {
             "actorSpecification": 1,
-            "title": "Numbers and their sums",
+            "title": "Hello World",
             "views": {
                 "sums": {
-                    "title": "A sum of two numbers",
+                    "title": "Hello World",
                     "transformation": {
                         "fields": [
-                            "sum",
-                            "firstNumber",
-                            "secondNumber"
+                            "location",
+                            "category",
+                            "query"
                         ]
                     },
                     "display": {
                         "component": "table",
                         "columns": [
                             {
-                                "label": "Sum",
-                                "format": "number",
-                                "field": "sum"
+                                "label": "location",
+                                "format": "array",
+                                "field": "location"
                             },
                             {
-                                "label": "First number",
-                                "format": "number",
-                                "field": "firstNumber"
+                                "label": "category",
+                                "format": "array",
+                                "field": "category"
                             },
                             {
-                                "label": "Second number",
-                                "format": "number",
-                                "field": "secondNumber"
+                                "label": "query",
+                                "format": "array",
+                                "field": "query"
                             }
                         ]
                     }

@@ -21,7 +21,7 @@
     "query": {
       "title": "Query - Search Terms",
       "type": "array",
-      "placeholderValue": "exam",
+      "placeholderValue": ["test", "exam"],
       "description": "The list of Search Terms you would like to filter by",
       "editor": "stringList"
     }
