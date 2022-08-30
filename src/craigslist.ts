@@ -2,6 +2,9 @@ import { CraigslistLocations } from "./location.js";
 import { CraigslistCategories } from "./category.js";
 import { strict as assert } from "assert";
 
+
+export type CraigslistPost = { url: string; title: string; date: string };
+
 export type CraigslistSearchInput = {
   location?: string[] | undefined;
   category?: string[] | undefined;
