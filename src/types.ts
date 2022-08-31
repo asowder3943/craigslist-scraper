@@ -98,16 +98,25 @@ export type InputSchema = {
   zip?: string[];
   category?: string[];
   query?: string[];
-  // titleOnly?: Boolean;
   urls?: string[];
 };
+
+/**
+ * Intermediate DefinedInputSchema Mirrors InputSchema, but no defined properties cannot be undefined
+ * @param site as a lists of strings with optional distance parameter
+ * @param geoLocation as a list of strings with optional distance parameter
+ * @param zip as a list of strings with optional distance parameter
+ * @param category as a list of strings
+ * @param query as a list of strings
+ * @param titleOnly as a list of strings
+ * @param urls as a list of strings
+ */
 export type DefinedInputSchema = {
   site: string[];
   geoLocation: string[];
   zip: string[];
   category: string[];
   query: string[];
-  // titleOnly?: Boolean;
   urls: string[];
 };
 

@@ -7,6 +7,11 @@ import {
 } from "./types.js";
 import { CRAIGSLIST_SITES, CRAIGSLIST_CATEGORIES } from "./consts.js";
 
+/**
+ * ApifyInputError is a custom error class to address potentially invalid inputs
+ * recieved through the Apify Actor Input Forms
+ * @param msg as string that describes the particular input failure
+ */
 export class ApifyInputError extends Error {
   constructor(msg: string) {
     super(msg);
@@ -14,6 +19,11 @@ export class ApifyInputError extends Error {
   }
 }
 
+/**
+ * Retrieve Craigslist Site Object using match string
+ * @param input a single string to match against CRAIGSLIST_SITES enum
+ * @returns `object: {subdomain: string, name: string}`
+ */
 function getCraigslistSite(input: string): object {
   var _matches = Object.entries(CRAIGSLIST_SITES).filter(
     (x) => x[0] === input || x[1].subdomain === input || x[1].name === input
@@ -36,6 +46,11 @@ function getCraigslistSite(input: string): object {
 //   return CRAIGSLIST_SITES[_matches[0][0]];
 // }
 
+/**
+ * Intermediate Input Validation - Ensures no provided inputs are undefined
+ * @param input as `InputSchema`
+ * @returns `DefinedInputSchema`
+ */
 function ensureDefinedInput(input: InputSchema): DefinedInputSchema {
   input.site = input.site ?? [];
   input.geoLocation = input.geoLocation ?? [];
@@ -46,8 +61,14 @@ function ensureDefinedInput(input: InputSchema): DefinedInputSchema {
   return input as DefinedInputSchema;
 }
 
+/**
+ * Trivial Input Validation - Should Throw Error in case no search options provided
+ * @param input as `DefinedInputSchema`
+ * @returns `DefinedInputSchema`
+ * @throws ApifyInputError
+ * 
+ */
 function ensureNonEmptyInput(input: DefinedInputSchema): DefinedInputSchema {
-  // Ensure that at least one search option was provided
   input = ensureDefinedInput(input);
   if (
     input.site.length === 0 &&
@@ -64,6 +85,12 @@ function ensureNonEmptyInput(input: DefinedInputSchema): DefinedInputSchema {
   return input;
 }
 
+/**
+ * Ensure provided distance string mateches valid search distance
+ * @param input as single string containing distance numeric
+ * @returns `number` search distance in miles
+ * @throws `ApifyInputError`
+ */
 function ensureValidDistanceInput(input: string): number {
   var _distance = parseFloat(input);
   if (Number.isNaN(_distance)) {
@@ -77,6 +104,12 @@ function ensureValidDistanceInput(input: string): number {
   return _distance;
 }
 
+/**
+ * Ensure all provided sites match known craigslist sites with valid search distances
+ * @param input list of sites to search with optional distance parameters`String[]`
+ * @returns `SearchSite[]` list of validated SiteSearch objects
+ * @throws ApifyInputError
+ */
 function ensureValidSiteInput(input: string[]): SearchSite[] {
   var siteLocations: SearchSite[] = [];
   for (var _i in input) {
@@ -96,6 +129,11 @@ function ensureValidSiteInput(input: string[]): SearchSite[] {
   return siteLocations;
 }
 
+/**
+ * Ensure all provided Geo Locations are valid and optional search distance parameters are in range
+ * @param input list of comma separrated strings latitude, longitude, distance
+ * @returns `SearchGeoLocation[]` list of validated GeoLocationSearch objects
+ */
 function ensureValidGeoLocationInput( input: string[]): SearchGeoLocation[]{
   var geoLocations: SearchGeoLocation[] = [];
   for (var _i in input) {
@@ -131,6 +169,16 @@ function ensureValidGeoLocationInput( input: string[]): SearchGeoLocation[]{
   return geoLocations
 } 
 
+// Unimplemented Validators
+// input.zip.length === 0 &&
+// input.category.length === 0 &&
+// input.query.length === 0 &&
+
+/**
+ * 
+ * @param input 
+ * @returns 
+ */
 export function validateInput(input: InputSchema): SearchLocation[] {
   var _definedInput = ensureDefinedInput(input);
   var _nonEmptyInput = ensureNonEmptyInput(_definedInput);
