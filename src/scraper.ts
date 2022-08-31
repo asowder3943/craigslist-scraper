@@ -1,6 +1,6 @@
 import { PlaywrightCrawler } from 'crawlee'
 import { strict as assert } from "assert";
-import { CraigslistPost } from './craigslist';
+import { CraigslistPost } from './types';
 import { Actor } from 'apify';
 
 export function getCraigslistScraper(actor: Actor) : PlaywrightCrawler {
