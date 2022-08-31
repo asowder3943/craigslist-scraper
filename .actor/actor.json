@@ -7,37 +7,26 @@
     "storages": {
         "dataset": {
             "actorSpecification": 1,
-            "title": "posts",
             "views": {
-                "posts": {
-                    "title": "posts",
-                    "transformation": {
-                        "fields": [
-                            "url",
-                            "title",
-                            "date"
-                        ]
-                    },
-                    "display": {
-                        "component": "table",
-                        "columns": [
-                            {
-                                "label": "location",
-                                "format": "string",
-                                "field": "location"
-                            },
-                            {
-                                "label": "category",
-                                "format": "string",
-                                "field": "category"
-                            },
-                            {
-                                "label": "query",
-                                "format": "string",
-                                "field": "query"
-                            }
-                        ]
-                    }
+                "display": {
+                    "component": "table",
+                    "columns": [
+                        {
+                            "label": "location",
+                            "format": "string",
+                            "field": "location"
+                        },
+                        {
+                            "label": "category",
+                            "format": "string",
+                            "field": "category"
+                        },
+                        {
+                            "label": "query",
+                            "format": "string",
+                            "field": "query"
+                        }
+                    ]
                 }
             }
         }
