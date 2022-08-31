@@ -6,28 +6,38 @@
     "version": "0.0.1",
     "storages": {
         "dataset": {
-            "title": "Posts",
             "actorSpecification": 1,
+            "title": "posts",
             "views": {
-                "display": {
-                    "component": "table",
-                    "columns": [
-                        {
-                            "label": "location",
-                            "format": "string",
-                            "field": "location"
-                        },
-                        {
-                            "label": "category",
-                            "format": "string",
-                            "field": "category"
-                        },
-                        {
-                            "label": "query",
-                            "format": "string",
-                            "field": "query"
-                        }
-                    ]
+                "posts": {
+                    "title": "posts",
+                    "transformation": {
+                        "fields": [
+                            "url",
+                            "title",
+                            "date"
+                        ]
+                    },
+                    "display": {
+                        "component": "table",
+                        "columns": [
+                            {
+                                "label": "url",
+                                "format": "string",
+                                "field": "url"
+                            },
+                            {
+                                "label": "title",
+                                "format": "string",
+                                "field": "title"
+                            },
+                            {
+                                "label": "date",
+                                "format": "string",
+                                "field": "date"
+                            }
+                        ]
+                    }
                 }
             }
         }
