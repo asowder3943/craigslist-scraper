@@ -6,7 +6,7 @@
   "properties": {
     "site": {
       "sectionCaption": "Craigslist Search Sites",
-      "title": "Sites - \"<a href='https://www.w3schools.in/'>Welcome to w3schools</a>\"Search Distance in Miles",
+      "title": "Sites - \"</span><a href='https://www.w3schools.in/'>Welcome to w3schools</a><span>\"Search Distance in Miles",
       "type": "array",
       "prefill": ["aurburn", "roanoke, 20"],
       "description": "The list of sub domains you would like to search",
