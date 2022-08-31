@@ -15,6 +15,10 @@ interface InputSchema {
 
 await Actor.init()
 
+// const proxyConfiguration = await  Actor.createProxyConfiguration({
+//     countryCode: 'US'
+// });
+
 console.log('Loading input');
 // Structure of input is defined in INPUT_SCHEMA.json.
 const input = await Actor.getInput<InputSchema>() as CraigslistSearchInput;
