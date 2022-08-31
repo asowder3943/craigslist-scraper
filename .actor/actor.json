@@ -6,6 +6,7 @@
     "version": "0.0.1",
     "storages": {
         "dataset": {
+            "title": "Posts",
             "actorSpecification": 1,
             "views": {
                 "display": {
