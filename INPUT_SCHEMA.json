@@ -15,7 +15,7 @@
     "geolocation": {
       "title": "Geolocations",
       "type":"array",
-      "prefil": ["29.049567, -98.434871, 20"],
+      "prefill": ["29.049567, -98.434871, 20"],
       "description": "The list of geolocations you would like to search in the form 'latitude, longitude, radius (in miles)'",
       "editor": "stringList"
     },
