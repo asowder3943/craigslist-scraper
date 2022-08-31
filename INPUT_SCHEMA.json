@@ -22,7 +22,7 @@
     "zip": {
       "title": "Geolocations",
       "type":"array",
-      "prefill": ["29.049567, -98.434871, 20"],
+      "prefill": ["24018, 20"],
       "description": "The list of geolocations you would like to search in the form 'latitude, longitude, radius (in miles)'",
       "editor": "stringList"
     },
@@ -41,7 +41,7 @@
       "description": "The list of Search Terms you would like to filter by",
       "editor": "stringList"
     },
-    "no_description": {
+    "titleOnly": {
       "title": "Search Titles Only",
       "type": "boolean",
       "description": "limit search queries to only the titles of posts",
