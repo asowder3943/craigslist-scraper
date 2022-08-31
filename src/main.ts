@@ -3,23 +3,10 @@
 
 // For more information, see https://sdk.apify.com/
 import { Actor } from 'apify';
-
-interface LocationInputSchema {
-    site: string[] | undefined
-    geoLocation: string[] | undefined
-    zip: string[] | undefined
-}
-
-interface SearchInputSchema {
-    category: string[] | undefined
-    query: string[] | undefined
-    titleOnly: Boolean
-}
+import { InputSchema } from './types.js'
 
 await Actor.init()
 console.log('Loading input');
-const locations = await Actor.getInput<LocationInputSchema>();
-const searches = await Actor.getInput<SearchInputSchema>();
-console.log(locations)
-console.log(searches)
+const input = await Actor.getInput<InputSchema>();
+console.info(input)
 await Actor.exit();
