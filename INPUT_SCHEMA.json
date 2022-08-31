@@ -5,6 +5,7 @@
   "schemaVersion": 1,
   "properties": {
     "location": {
+      "sectionCaption": "Craigslist Search Configuration",
       "title": "Locations",
       "type": "array",
       "prefill": ["aurburn"],
@@ -25,6 +26,8 @@
       "description": "The list of Search Terms you would like to filter by",
       "editor": "stringList"
     },
+
+    
     "proxyConfiguration": {
       "sectionCaption": "Proxy and browser configuration",
       "title": "Proxy configuration",
