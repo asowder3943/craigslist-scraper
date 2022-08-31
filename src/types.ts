@@ -2,7 +2,7 @@
  * Search an area within given Distance
  * @param radius The maximum distance from a given search location (in miles)
  */
-type SearchDistance = {
+export type SearchDistance = {
   distance: Number;
 };
 
@@ -10,24 +10,25 @@ type SearchDistance = {
  * Search By Craigslist Regional Sites
  * @param site the site subdomain for a craigslist region, see [Site Index](https://www.craigslist.org/about/sites)
  */
-type SearchSite = { site: object } & SearchDistance;
+export type SearchSite = { site: object } & SearchDistance;
 
 /**
  * Search by Zip Code **only validated for US zip codes**
  * @param zipCode see [Zip Code Index](https://zipcodes.org/us-zip-codes) for supported codes
  */
-type SearchZip = { zipCode: string } & SearchDistance;
+type SearchZip = { zipCode
+  : string } & SearchDistance;
 /**
  * Search by GeoLocation
  * @param latitudemust should be from -85, 85 inclusive
  * @param longitudemust should be from -180, 180 inclusive
  */
-type SearchGeoLocation = { latitude: Number; longitude: Number } & SearchDistance;
+export type SearchGeoLocation = { latitude: Number; longitude: Number } & SearchDistance;
 
 /**
  * Search Using Site, Zip Codes, or GeoLocations
  */
-type SearchLocation = SearchSite | SearchZip | SearchGeoLocation;
+export type SearchLocation = SearchSite | SearchZip | SearchGeoLocation;
 
 /**
  * Search Using Site Categories
@@ -83,13 +84,13 @@ type Search =
 
 /**
  * Accept Search Inputs through the apify input forms
- * @param site
- * @param geoLocation
- * @param zip
- * @param category
- * @param query
- * @param titleOnly
- * @param urls
+ * @param site as a lists of strings with optional distance parameter
+ * @param geoLocation as a list of strings with optional distance parameter
+ * @param zip as a list of strings with optional distance parameter
+ * @param category as a list of strings
+ * @param query as a list of strings
+ * @param titleOnly as a list of strings
+ * @param urls as a list of strings
  */
 export type InputSchema = {
   site?: string[];
@@ -99,6 +100,15 @@ export type InputSchema = {
   query?: string[];
   // titleOnly?: Boolean;
   urls?: string[];
+};
+export type DefinedInputSchema = {
+  site: string[];
+  geoLocation: string[];
+  zip: string[];
+  category: string[];
+  query: string[];
+  // titleOnly?: Boolean;
+  urls: string[];
 };
 
 /**
