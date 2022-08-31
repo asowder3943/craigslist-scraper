@@ -4,12 +4,12 @@
   "type": "object",
   "schemaVersion": 1,
   "properties": {
-    "location": {
-      "sectionCaption": "Craigslist Search Configuration",
-      "title": "Locations",
+    "region": {
+      "sectionCaption": "Craigslist Search Locations",
+      "title": "Regions",
       "type": "array",
       "prefill": ["aurburn"],
-      "description": "The list of locations you would like to search",
+      "description": "The list of regions you would like to search",
       "editor": "stringList"
     },
     "geolocation": {
@@ -19,7 +19,15 @@
       "description": "The list of geolocations you would like to search in the form 'latitude, longitude, radius (in miles)'",
       "editor": "stringList"
     },
+    "zip": {
+      "title": "Geolocations",
+      "type":"array",
+      "prefill": ["29.049567, -98.434871, 20"],
+      "description": "The list of geolocations you would like to search in the form 'latitude, longitude, radius (in miles)'",
+      "editor": "stringList"
+    },
     "category": {
+      "sectionCaption": "Craigslist Search Categories and Terms",
       "title": "Categories",
       "type": "array",
       "prefill": ["ggg"],
@@ -33,8 +41,12 @@
       "description": "The list of Search Terms you would like to filter by",
       "editor": "stringList"
     },
-
-    
+    "no_description": {
+      "title": "Search Titles Only",
+      "type": "boolean",
+      "description": "limit search queries to only the titles of posts",
+      "default": false
+    },
     "proxyConfiguration": {
       "sectionCaption": "Proxy and browser configuration",
       "title": "Proxy configuration",
