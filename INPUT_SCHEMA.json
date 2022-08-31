@@ -4,15 +4,15 @@
   "type": "object",
   "schemaVersion": 1,
   "properties": {
-    "region": {
-      "sectionCaption": "Craigslist Search Locations",
-      "title": "Regions",
+    "site": {
+      "sectionCaption": "Craigslist Search Sites",
+      "title": "Sites",
       "type": "array",
-      "prefill": ["aurburn"],
-      "description": "The list of regions you would like to search",
+      "prefill": ["aurburn", "roanoke, 20"],
+      "description": "The list of sub domains you would like to search",
       "editor": "stringList"
     },
-    "geolocation": {
+    "geoLocation": {
       "title": "GeoLocations",
       "type":"array",
       "prefill": ["29.049567, -98.434871, 20"],
@@ -22,7 +22,7 @@
     "zip": {
       "title": "Zip Code",
       "type":"array",
-      "prefill": ["24018, 20"],
+      "prefill": ["24018, 10"],
       "description": "The list of Zip Codes you would like to search in the form 'Code, radius (in miles)'",
       "editor": "stringList"
     },
@@ -30,14 +30,14 @@
       "sectionCaption": "Craigslist Search Categories and Terms",
       "title": "Categories",
       "type": "array",
-      "prefill": ["ggg"],
+      "prefill": ["ggg", "rrr"],
       "description": "The list of categories you would like to search",
       "editor": "stringList"
     },
     "query": {
       "title": "Query - Search Terms",
       "type": "array",
-      "prefill": ["test","exam"],
+      "prefill": ["software & engineer","software & developer", "programmer"],
       "description": "The list of Search Terms you would like to filter by",
       "editor": "stringList"
     },
