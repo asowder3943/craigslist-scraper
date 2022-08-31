@@ -3,3 +3,4 @@ dist/
 package-lock.json
 .prettierrc
 storage/
+.DS_Store
