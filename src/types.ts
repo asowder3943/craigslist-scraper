@@ -97,7 +97,7 @@ export type InputSchema = {
   zip?: string[];
   category?: string[];
   query?: string[];
-  titleOnly?: Boolean;
+  // titleOnly?: Boolean;
   urls?: string[];
 };
 
