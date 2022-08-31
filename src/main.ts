@@ -4,7 +4,7 @@
 // For more information, see https://sdk.apify.com/
 import { Actor } from 'apify';
 import { CraigslistSearchInput, buildRequestUrls, CraigslistPost } from "./craigslist.js";
-import { PlaywrightCrawler, Dataset } from 'crawlee'
+import { PlaywrightCrawler } from 'crawlee'
 import { strict as assert } from "assert";
 
 interface InputSchema {
@@ -29,7 +29,6 @@ const crawler = new PlaywrightCrawler({
     headless: false,
     requestHandler: async ({ page, request }) => {
         console.log(`Scraping ${await page.title()} | ${request.url}`);
-    const dataset = await Dataset.open();
 
     const _titles = await page.$$eval(".result-title", (els: any[]) => {
       return els.map((el) => el.textContent);
