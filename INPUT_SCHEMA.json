@@ -6,7 +6,7 @@
   "properties": {
     "site": {
       "sectionCaption": "Craigslist Search Sites",
-      "title": "Sites",
+      "title": "Sites - '[test](https://google.com), Search Distance in Miles'",
       "type": "array",
       "prefill": ["aurburn", "roanoke, 20"],
       "description": "The list of sub domains you would like to search",
