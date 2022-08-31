@@ -1,4 +1,4 @@
-export const CRAIGSLIST_SITES = {
+export const CRAIGSLIST_SITES: {[key: string]: {subdomain: string, name: string}} = {
   AUBURN: { subdomain: "auburn", name: "auburn" },
   BHAM: { subdomain: "bham", name: "birmingham" },
   DOTHAN: { subdomain: "dothan", name: "dothan" },
@@ -414,7 +414,7 @@ export const CRAIGSLIST_SITES = {
 };
 
 
-export const CRAIGSLIST_CATEGORIES = {
+export const CRAIGSLIST_CATEGORIES: {[key: string]: {tag: string, name: string, parent: string}} = {
   CCC: { tag: "ccc", name: "all-community", parent: "Community" },
   ACT: { tag: "act", name: "activities", parent: "Community" },
   ATS: { tag: "ats", name: "artists", parent: "Community" },
