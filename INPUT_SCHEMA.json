@@ -12,6 +12,13 @@
       "description": "The list of locations you would like to search",
       "editor": "stringList"
     },
+    "geolocation": {
+      "title": "Geolocations",
+      "type":"array",
+      "prefil": ["29.049567, -98.434871, 20"],
+      "description": "The list of geolocations you would like to search in the form 'latitude, longitude, radius (in miles)'",
+      "editor": "stringList"
+    },
     "category": {
       "title": "Categories",
       "type": "array",
