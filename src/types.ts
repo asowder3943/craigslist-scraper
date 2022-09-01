@@ -16,12 +16,12 @@ export type SearchSite = { site: object } & SearchDistance;
  * Search by Zip Code **only validated for US zip codes**
  * @param zipCode see [Zip Code Index](https://zipcodes.org/us-zip-codes) for supported codes
  */
-type SearchZip = { zipCode
-  : string } & SearchDistance;
+export type SearchZip = { zipCode
+  : number } & SearchDistance;
 /**
  * Search by GeoLocation
- * @param latitudemust should be from -85, 85 inclusive
- * @param longitudemust should be from -180, 180 inclusive
+ * @param latitude should be from -85, 85 inclusive
+ * @param longitude should be from -180, 180 inclusive
  */
 export type SearchGeoLocation = { latitude: Number; longitude: Number } & SearchDistance;
 
@@ -86,7 +86,7 @@ type Search =
  * Accept Search Inputs through the apify input forms
  * @param site as a lists of strings with optional distance parameter
  * @param geoLocation as a list of strings with optional distance parameter
- * @param zip as a list of strings with optional distance parameter
+ * @param zipCode as a list of strings with optional distance parameter
  * @param category as a list of strings
  * @param query as a list of strings
  * @param titleOnly as a list of strings
@@ -95,7 +95,7 @@ type Search =
 export type InputSchema = {
   site?: string[];
   geoLocation?: string[];
-  zip?: string[];
+  zipCode?: string[];
   category?: string[];
   query?: string[];
   urls?: string[];
@@ -105,7 +105,7 @@ export type InputSchema = {
  * Intermediate DefinedInputSchema Mirrors InputSchema, but no defined properties cannot be undefined
  * @param site as a lists of strings with optional distance parameter
  * @param geoLocation as a list of strings with optional distance parameter
- * @param zip as a list of strings with optional distance parameter
+ * @param zipCode as a list of strings with optional distance parameter
  * @param category as a list of strings
  * @param query as a list of strings
  * @param titleOnly as a list of strings
@@ -114,7 +114,7 @@ export type InputSchema = {
 export type DefinedInputSchema = {
   site: string[];
   geoLocation: string[];
-  zip: string[];
+  zipCode: string[];
   category: string[];
   query: string[];
   urls: string[];
