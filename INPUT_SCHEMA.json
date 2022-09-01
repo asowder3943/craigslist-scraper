@@ -41,12 +41,6 @@
       "description": "The list of Search Terms you would like to filter by",
       "editor": "stringList"
     },
-    "titleOnly": {
-      "title": "Search Titles Only",
-      "type": "boolean",
-      "description": "limit search queries to only the titles of posts",
-      "default": false
-    },
     "proxyConfiguration": {
       "sectionCaption": "Proxy and browser configuration",
       "title": "Proxy configuration",
@@ -73,14 +67,29 @@
         "Use one proxy until failure"
       ]
     },
-    "sessionPoolName": {
-      "title": "Session pool name",
-      "type": "string",
-      "description": "<b>Use only english alphanumeric characters dashes and underscores.</b> A session is a representation of a user. It has it's own IP and cookies which are then used together to emulate a real user. Usage of the sessions is controlled by the Proxy rotation option. By providing a session pool name, you enable sharing of those sessions across multiple actor runs. This is very useful when you need specific cookies for accessing the websites or when a lot of your proxies are already blocked. Instead of trying randomly, a list of working sessions will be saved and a new actor run can reuse those sessions. Note that the IP lock on sessions expires after 24 hours, unless the session is used again in that window.",
-      "editor": "textfield",
-      "minLength": 3,
-      "maxLength": 200,
-      "pattern": "[0-9A-z-]"
+    "maxRequestRetries": {
+      "sectionCaption": "Performance and limits",
+      "title": "Max request retries",
+      "type": "integer",
+      "description": "Maximum number of times the request for the page will be retried in case of an error. Setting it to 0 means that the request will be attempted once and will not be retried if it fails.",
+      "minimum": 0,
+      "default": 3,
+      "unit": "retries"
+    },
+    "maxPagesPerCrawl": {
+      "title": "Max pages per run",
+      "type": "integer",
+      "description": "Maximum number of pages that the scraper will open. 0 means unlimited.",
+      "minimum": 0,
+      "default": 10,
+      "unit": "pages"
+    },
+    "maxConcurrency": {
+      "title": "Max concurrency",
+      "type": "integer",
+      "description": "Defines how many pages can be processed by the scraper in parallel. The scraper automatically increases and decreases concurrency based on available system resources. Use this option to set a hard limit.",
+      "minimum": 1,
+      "default": 50
     }
   }
 }
