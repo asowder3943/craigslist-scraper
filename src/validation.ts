@@ -272,9 +272,10 @@ export function validateInput(input: InputSchema): Search {
   _validatedLocations = _validatedLocations.concat(_validatedGeoLocationsInput);
   _validatedLocations = _validatedLocations.concat(_validatedZipCodeInput);
 
-  var _validatedLocations: SearchLocation[] = _validatedSitesInput
-  _validatedLocations = _validatedLocations.concat(_validatedGeoLocationsInput)
-  _validatedLocations = _validatedLocations.concat(_validatedZipCodeInput)
+  if (_validatedLocations.length === 0)
+    for (var _site in CRAIGSLIST_SITES) {
+      _validatedLocations.push({ site: CRAIGSLIST_SITES[_site] });
+    }
 
   return {
     locations: _validatedLocations,
