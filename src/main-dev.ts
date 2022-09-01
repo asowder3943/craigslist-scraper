@@ -88,4 +88,14 @@ var zipCodeValidationTestCases: InputSchema[] = [
   },
 ];
 
-runTestCases(geoLocationValidationTestCases);
+
+var categoryValidationTestCases: InputSchema[] = [
+  {
+    category: ['RRR', 'ggg']
+  },
+  {
+    category: ['invalid category']
+  }
+]
+
+runTestCases(categoryValidationTestCases);

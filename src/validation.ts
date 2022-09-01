@@ -5,6 +5,7 @@ import {
   SearchGeoLocation,
   SearchSite,
   SearchZip,
+  SearchCategory,
 } from "./types.js";
 import { CRAIGSLIST_SITES, CRAIGSLIST_CATEGORIES } from "./consts.js";
 
@@ -31,20 +32,20 @@ function getCraigslistSite(input: string): object {
   );
   if (_matches.length === 0) {
     throw new ApifyInputError(`Unable to determine intended site from input "${input}"\n
-    provided site must match an the subdomain or property name of an item on the list of [known sites](https://gist.github.com/asowder3943/b0c2c0339feb41a7bea9def472c1931d)`);
+    provided site must match a subdomain or property name of an item on the list of [known sites](https://gist.github.com/asowder3943/b0c2c0339feb41a7bea9def472c1931d)`);
   }
   return CRAIGSLIST_SITES[_matches[0][0]];
 }
 
-function getCraigslistCategory(input: string): object | null {
+function getCraigslistCategory(input: string): object {
   var _matches = Object.entries(CRAIGSLIST_CATEGORIES).filter(
     (x) => x[0] === input || x[1].tag === input || x[1].name === input
   );
   if (_matches.length === 0){
-    throw new ApifyInputError(`Unable to determine intended site from input\n
-    provided site must match an the subdomain or property name of an item on the list of [known sites](https://gist.github.com/asowder3943/b0c2c0339feb41a7bea9def472c1931d)`);
+    throw new ApifyInputError(`Unable to determine intended category from input "${input}"\n
+    provided category must match a property of an item on the list of [known categories](https://gist.github.com/asowder3943/b0c2c0339feb41a7bea9def472c1931d)`);
   }
-  return CRAIGSLIST_SITES[_matches[0][0]];
+  return CRAIGSLIST_CATEGORIES[_matches[0][0]];
 }
 
 /**
@@ -176,6 +177,12 @@ function ensureValidGeoLocationInput(input: string[]): SearchGeoLocation[] {
 
 // Unimplemented Validators
 // input.zip.length === 0 &&
+
+/**
+ * Ensure all provided ZipCodes are valid and optional search distance parameters are in range
+ * @param input list of zip code string inputs with optional distance parameter
+ * @returns `SearchZip[]` A list of validated SearchZip objects
+ */
 function ensureValidZipCode(input: string[]): SearchZip[] {
   var zipLocations: SearchZip[] = [];
   for (var _i in input) {
@@ -206,15 +213,27 @@ function ensureValidZipCode(input: string[]): SearchZip[] {
   return zipLocations;
 }
 
-// input.category.length === 0 &&
-// input.query.length === 0 &&
+/**
+ * Ensure all provided categories match known craigslist categories
+ * @param input list of categories as strings
+ * @returns `SearchCategory[]` list of validated SearchCategory objects
+ * @throws ApifyInputError
+ */
+ function ensureValidCategoryInput(input: string[]): SearchCategory[] {
+  var siteCategories: SearchCategory[] = [];
+  for (var _i in input) {
+    var _validated_category = getCraigslistCategory(input[_i]);
+    siteCategories.push({ category: _validated_category });
+  }
+  return siteCategories;
+}
 
 /**
  *
  * @param input
  * @returns
  */
-export function validateInput(input: InputSchema): SearchLocation[] {
+export function validateInput(input: InputSchema): SearchCategory[] {
   var _definedInput = ensureDefinedInput(input);
   var _nonEmptyInput = ensureNonEmptyInput(_definedInput);
   var _validatedSitesInput = ensureValidSiteInput(_nonEmptyInput.site);
@@ -222,6 +241,6 @@ export function validateInput(input: InputSchema): SearchLocation[] {
     _nonEmptyInput.geoLocation
   );
   var _validatedZipCodeInput = ensureValidZipCode(_definedInput.zipCode);
-  
-  return _validatedGeoLocationsInput;
+  var _validated_categoryInput = ensureValidCategoryInput(_definedInput.category)
+  return _validated_categoryInput;
 }
