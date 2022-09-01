@@ -3,7 +3,7 @@
  * @param radius The maximum distance from a given search location (in miles)
  */
 export type SearchDistance = {
-  distance: Number;
+  distance: number;
 };
 
 /**
@@ -23,8 +23,8 @@ export type SearchZip = { zipCode: number } & SearchDistance;
  * @param longitude should be from -180, 180 inclusive
  */
 export type SearchGeoLocation = {
-  latitude: Number;
-  longitude: Number;
+  latitude: number;
+  longitude: number;
 } & SearchDistance;
 
 /**
