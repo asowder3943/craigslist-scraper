@@ -7,6 +7,9 @@ import {
   SearchZip,
   SearchCategory,
   Search,
+  isSearchGeoLocation,
+  isSearchSite,
+  isSearchZip,
 } from "./types.js";
 import { CRAIGSLIST_SITES, CRAIGSLIST_CATEGORIES } from "./consts.js";
 import { DEFAULT_SEARCH_DISTANCE } from "./defauts.js";
@@ -283,4 +286,44 @@ export function validateInput(input: InputSchema): Search {
     query: _validatedQuery,
     urls: _definedInput.urls,
   };
+}
+
+
+export function getRequestUrls(search: Search ): string[] {
+  var urls: string[] = search.urls;
+  for (var _loc in search.locations) {
+    var _curLocation = search.locations[_loc]
+    var _subdomain = 'auburn'
+    var _param_string = ''
+
+    if (_curLocation.distance !== undefined && _curLocation.distance !== null) _param_string += `search_distance=${_curLocation.distance}`
+
+    if (isSearchSite(_curLocation)) {
+      _subdomain = _curLocation.site.subdomain
+    }
+
+    if (isSearchGeoLocation(_curLocation)) {
+      var _lat = _curLocation.latitude
+      var _long = _curLocation.longitude
+      _param_string += `&lat=${_lat}&lon=${_long}`
+    }
+
+    if (isSearchZip(_curLocation)) {
+      var _zip = _curLocation.zipCode
+      _param_string += `&postal=${_zip}`
+    }
+
+    _param_string += `&query=${search.query}`
+
+    if (search.categories.length === 0) {
+      urls.push(`https://${_subdomain}.craigslist.org/?${_param_string}`)
+    } else for (var _cat in search.categories) {
+      urls.push(`https://${_subdomain}.craigslist.org/search/${search.categories[_cat].category.tag}/?${_param_string}`)
+    }
+  }
+  return urls;
+}
+
+export function getRequestUrlsFromInput(input: InputSchema): string[]{
+  return getRequestUrls(validateInput(input))
 }
