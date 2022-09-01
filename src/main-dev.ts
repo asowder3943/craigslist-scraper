@@ -22,23 +22,18 @@ function runTestCases(cases: InputSchema[]) {
 
 var siteValidationTestCases: InputSchema[] = [
   {
-    // all supported location types - Should Pass
     site: ["AUBURN", "roanoke", "charlottesville, 12"],
   },
   {
-    // invalid site name
     site: ["invalid_name"],
   },
   {
-    // invalid 3rd parameter
     site: ["AUBURN, 12, invalid_3rd_argument"],
   },
   {
-    // Invalid distance parameter, out of range
     site: ["AUBURN, -12"],
   },
   {
-    // Invalid distance parameter, non float
     site: ["AUBURN, invalid numeric input"],
   },
 ];
@@ -119,8 +114,19 @@ var queryValidationTestCases: InputSchema[] = [
   }
 ]
 
+var comboValidationTestCases: InputSchema[] = [
+  {
+    site: ["AUBURN", "roanoke", "charlottesville, 12"],
+    geoLocation: ["32.609856, -85.480782", "32.609856, -85.480782, 12"],
+    zipCode: ["22902", "24018, 12"],
+    category: ['RRR', 'ggg'],
+    query: ['programmer', 'software & developer', 'software & engineer']
+  }
+]
+
 runTestCases(siteValidationTestCases);
 runTestCases(geoLocationValidationTestCases);
 runTestCases(zipCodeValidationTestCases);
 runTestCases(categoryValidationTestCases);
 runTestCases(queryValidationTestCases);
+runTestCases(comboValidationTestCases);
