@@ -12,11 +12,35 @@ export type SearchDistance = {
  */
 export type SearchSite = { site: object };
 
+export function isSearchSite(obj: object): obj is SearchSite {
+  return (
+    obj &&
+    typeof obj === "object" &&
+    obj["site"] &&
+    typeof obj["site"] === "object" &&
+    obj["site"]["subdomain"] &&
+    obj["site"]["name"] &&
+    typeof obj["site"]["subdomain"] === "string" &&
+    typeof obj["site"]["name"] === "string"
+  )
+}
 /**
  * Search by Zip Code **only validated for US zip codes**
  * @param zipCode see [Zip Code Index](https://zipcodes.org/us-zip-codes) for supported codes
  */
 export type SearchZip = { zipCode: number } & SearchDistance;
+
+export function isSearchZip(obj: unknown): obj is SearchZip {
+  return (
+    obj &&
+    typeof obj === "object" &&
+    obj["zipCode"] &&
+    typeof obj["zipCode"] === "number" &&
+    typeof obj["distance"] === "number" &&
+    typeof obj["distance"] !== null
+  );
+}
+
 /**
  * Search by GeoLocation
  * @param latitude should be from -85, 85 inclusive
@@ -27,6 +51,19 @@ export type SearchGeoLocation = {
   longitude: number;
 } & SearchDistance;
 
+
+export function isSearchGeoLocation(obj: unknown): obj is SearchGeoLocation {
+  return (
+    obj &&
+    typeof obj === "object" &&
+    obj["latitude"] &&
+    obj["longitude"] &&
+    typeof obj["latitude"] === "number" &&
+    typeof obj["longitude"] === "number" &&
+    typeof obj["distance"] === "number" &&
+    typeof obj["distance"] !== null
+  );
+}
 /**
  * Search Using Site, Zip Codes, or GeoLocations
  */
@@ -48,10 +85,10 @@ export type SearchCategory = { category: object };
  */
 export type Search = {
   locations: SearchLocation[];
-      categories: SearchCategory[];
+  categories: SearchCategory[];
   query: string;
   urls: string[];
-    };
+};
 
 /**
  * Accept Search Inputs through the apify input forms
