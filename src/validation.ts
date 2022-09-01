@@ -6,10 +6,10 @@ import {
   SearchSite,
   SearchZip,
   SearchCategory,
-  Search
+  Search,
 } from "./types.js";
 import { CRAIGSLIST_SITES, CRAIGSLIST_CATEGORIES } from "./consts.js";
-import {DEFAULT_SEARCH_DISTANCE} from "./defauts.js"
+import { DEFAULT_SEARCH_DISTANCE } from "./defauts.js";
 /**
  * ApifyInputError is a custom error class to address potentially invalid inputs
  * recieved through the Apify Actor Input Forms
@@ -104,7 +104,7 @@ function ensureValidDistanceInput(input: string): number {
     throw new ApifyInputError(`Provided Distance Out of Range: "${input}"\n
       distance should be greater than or equal to 0 miles, but not greater than 250 miles`);
   }
-  if (_distance == 0) _distance = DEFAULT_SEARCH_DISTANCE
+  if (_distance == 0) _distance = DEFAULT_SEARCH_DISTANCE;
   return _distance;
 }
 
@@ -118,7 +118,7 @@ function ensureValidSiteInput(input: string[]): SearchSite[] {
   var siteLocations: SearchSite[] = [];
   for (var _i in input) {
     var _validated_site = getCraigslistSite(input[_i]);
-    siteLocations.push({ site: _validated_site});
+    siteLocations.push({ site: _validated_site });
   }
   return siteLocations;
 }
@@ -226,16 +226,29 @@ function ensureValidCategoryInput(input: string[]): SearchCategory[] {
  * @returns `string` single validated query string
  */
 function ensureValidQuery(input: string[]): string {
-  if (input.length === 0) return ''
-  var searchQuery: string = "(";
+  if(input.length === 0) return ""
+  var _unescapedQuery: string = "(";
   for (var i = 0; i < input.length; i++) {
-    var _validated_query = input[i];
-    searchQuery += _validated_query;
-    if (i < input.length - 1) searchQuery += ")|(";
-    if (i === input.length - 1) searchQuery += ")";
+    var _currentQuery = input[i].trim();
+    if (_currentQuery.length === 0)
+      throw new ApifyInputError(
+        `Invalid Empty Query Submitted, query cannot be empty string if provided`
+      );
+    _unescapedQuery += _currentQuery;
+    if (i < input.length - 1 && _currentQuery.length > 0)
+      _unescapedQuery += ")|(";
+    if (i === input.length - 1) _unescapedQuery += ")";
   }
-  if (searchQuery == '()') return ''
-  return encodeURIComponent(searchQuery).replaceAll('(','%28').replaceAll(')','%29');
+  var _escaped_query = encodeURIComponent(_unescapedQuery)
+    .replaceAll("(", "%28")
+    .replaceAll(")", "%29");
+  if (_escaped_query.split("%7C").length - 1 > 4)
+    throw new ApifyInputError(
+      `Too Many Union Conditions in Query: Current number of unions ${
+        _escaped_query.split("%7C").length - 1
+      }\nMaximum number of query union operators is 4`
+    );
+  return _escaped_query;
 }
 
 /**
@@ -253,8 +266,11 @@ export function validateInput(input: InputSchema): Search {
   var _validatedZipCodeInput = ensureValidZipCode(_nonEmptyInput.zipCode);
   var _validatedCategoryInput = ensureValidCategoryInput(
     _nonEmptyInput.category
-  )
+  );
   var _validatedQuery = ensureValidQuery(_nonEmptyInput.query);
+  var _validatedLocations: SearchLocation[] = _validatedSitesInput;
+  _validatedLocations = _validatedLocations.concat(_validatedGeoLocationsInput);
+  _validatedLocations = _validatedLocations.concat(_validatedZipCodeInput);
 
   var _validatedLocations: SearchLocation[] = _validatedSitesInput
   _validatedLocations = _validatedLocations.concat(_validatedGeoLocationsInput)
@@ -264,6 +280,6 @@ export function validateInput(input: InputSchema): Search {
     locations: _validatedLocations,
     categories: _validatedCategoryInput,
     query: _validatedQuery,
-    urls: _definedInput.urls
+    urls: _definedInput.urls,
   };
 }
