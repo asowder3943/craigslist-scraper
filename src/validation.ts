@@ -7,9 +7,6 @@ import {
   SearchZip,
   SearchCategory,
   Search,
-  isSearchGeoLocation,
-  isSearchSite,
-  isSearchZip,
   CraigslistCategory,
   CraigslistLocation,
 } from "./types.js";
@@ -312,17 +309,17 @@ export function getRequestUrls(search: Search): string[] {
         _param_string += `search_distance=${_curLocation.distance}`;
     }
     
-    if (isSearchSite(_curLocation)) {
+    if ("site" in _curLocation) {
       _subdomain = _curLocation.site.subdomain;
     }
 
-    if (isSearchGeoLocation(_curLocation)) {
+    if ("latitude" in _curLocation) {
       var _lat = _curLocation.latitude;
       var _long = _curLocation.longitude;
       _param_string += `&lat=${_lat}&lon=${_long}`;
     }
 
-    if (isSearchZip(_curLocation)) {
+    if ("zipCode" in _curLocation) {
       var _zip = _curLocation.zipCode;
       _param_string += `&postal=${_zip}`;
     }
