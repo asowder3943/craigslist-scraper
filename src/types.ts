@@ -46,30 +46,11 @@ export type SearchCategory = { category: object };
  * @param query define the query to be used in each search
  * @param urls provide predetermined page urls to be scraped
  */
-export type Search =
-  | {
-      locations?: SearchLocation[];
-      categories?: SearchCategory | SearchCategory[];
-      query?: string;
-      urls: string[];
-    }
-  | {
-      locations?: SearchLocation[];
-      categories?: SearchCategory[];
-      query: string;
-      urls?: string[];
-    }
-  | {
-      locations?: SearchLocation[];
+export type Search = {
+  locations: SearchLocation[];
       categories: SearchCategory[];
-      query?: string;
-      urls?: string[];
-    }
-  | {
-      locations: SearchLocation | SearchLocation[];
-      categories?: SearchCategory[];
-      query?: string;
-      urls?: string[];
+  query: string;
+  urls: string[];
     };
 
 /**
