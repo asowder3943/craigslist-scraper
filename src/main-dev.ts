@@ -22,20 +22,11 @@ function runTestCases(cases: InputSchema[]) {
 
 var siteValidationTestCases: InputSchema[] = [
   {
-    site: ["AUBURN", "roanoke", "charlottesville, 12"],
+    site: ["AUBURN", "roanoke", "charlottesville"],
   },
   {
     site: ["invalid_name"],
-  },
-  {
-    site: ["AUBURN, 12, invalid_3rd_argument"],
-  },
-  {
-    site: ["AUBURN, -12"],
-  },
-  {
-    site: ["AUBURN, invalid numeric input"],
-  },
+  }
 ];
 
 var geoLocationValidationTestCases: InputSchema[] = [
@@ -116,7 +107,7 @@ var queryValidationTestCases: InputSchema[] = [
 
 var comboValidationTestCases: InputSchema[] = [
   {
-    site: ["AUBURN", "roanoke", "charlottesville, 12"],
+    site: ["AUBURN", "roanoke", "charlottesville"],
     geoLocation: ["32.609856, -85.480782", "32.609856, -85.480782, 12"],
     zipCode: ["22902", "24018, 12"],
     category: ['RRR', 'ggg'],

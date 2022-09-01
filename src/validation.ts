@@ -116,18 +116,8 @@ function ensureValidDistanceInput(input: string): number {
 function ensureValidSiteInput(input: string[]): SearchSite[] {
   var siteLocations: SearchSite[] = [];
   for (var _i in input) {
-    var _params = input[_i].split(",");
-    if (_params.length > 2 || _params.length < 1) {
-      throw new ApifyInputError(`Unable to parse "${input[_i]}" - wrong number of parameters provided\n
-      input should be in the form \"SITE, distance\" or \"SITE\". Example: \"ROANOKE, 15\"`);
-    }
-    var _site = _params[0];
-    var _distance = 0;
-    var _validated_site = getCraigslistSite(_site);
-    if (_params.length === 2) {
-      _distance = ensureValidDistanceInput(_params[1]);
-    }
-    siteLocations.push({ site: _validated_site, distance: _distance });
+    var _validated_site = getCraigslistSite(input[_i]);
+    siteLocations.push({ site: _validated_site});
   }
   return siteLocations;
 }

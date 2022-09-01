@@ -10,7 +10,7 @@ export type SearchDistance = {
  * Search By Craigslist Regional Sites
  * @param site the site subdomain for a craigslist region, see [Site Index](https://www.craigslist.org/about/sites)
  */
-export type SearchSite = { site: object } & SearchDistance;
+export type SearchSite = { site: object };
 
 /**
  * Search by Zip Code **only validated for US zip codes**
