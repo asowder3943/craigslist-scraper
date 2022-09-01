@@ -229,6 +229,11 @@ function ensureValidCategoryInput(input: string[]): SearchCategory[] {
   return siteCategories;
 }
 
+/**
+ * Ensure all provided queries are combined and encoded
+ * @param input list of queries as strings
+ * @returns `string` single validated query string
+ */
 function ensureValidQuery(input: string[]): string {
   if (input.length === 0) return ''
   var searchQuery: string = "(";
@@ -239,7 +244,7 @@ function ensureValidQuery(input: string[]): string {
     if (i === input.length - 1) searchQuery += ")";
   }
   if (searchQuery == '()') return ''
-  return encodeURIComponent(searchQuery).replaceAll('(','%28').replace(')','%29');
+  return encodeURIComponent(searchQuery).replaceAll('(','%28').replaceAll(')','%29');
 }
 
 /**
@@ -257,10 +262,15 @@ export function validateInput(input: InputSchema): Search {
   var _validatedZipCodeInput = ensureValidZipCode(_nonEmptyInput.zipCode);
   var _validatedCategoryInput = ensureValidCategoryInput(
     _nonEmptyInput.category
-  );
+  )
   var _validatedQuery = ensureValidQuery(_nonEmptyInput.query);
+
+  var _validatedLocations: SearchLocation[] = _validatedSitesInput
+  _validatedLocations = _validatedLocations.concat(_validatedGeoLocationsInput)
+  _validatedLocations = _validatedLocations.concat(_validatedZipCodeInput)
+
   return {
-    locations: _validatedSitesInput,
+    locations: _validatedLocations,
     categories: _validatedCategoryInput,
     query: _validatedQuery,
     urls: _definedInput.urls
