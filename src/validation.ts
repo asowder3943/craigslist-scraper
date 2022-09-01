@@ -6,6 +6,7 @@ import {
   SearchSite,
   SearchZip,
   SearchCategory,
+  Search
 } from "./types.js";
 import { CRAIGSLIST_SITES, CRAIGSLIST_CATEGORIES } from "./consts.js";
 
@@ -41,7 +42,7 @@ function getCraigslistCategory(input: string): object {
   var _matches = Object.entries(CRAIGSLIST_CATEGORIES).filter(
     (x) => x[0] === input || x[1].tag === input || x[1].name === input
   );
-  if (_matches.length === 0){
+  if (_matches.length === 0) {
     throw new ApifyInputError(`Unable to determine intended category from input "${input}"\n
     provided category must match a property of an item on the list of [known categories](https://gist.github.com/asowder3943/b0c2c0339feb41a7bea9def472c1931d)`);
   }
@@ -219,7 +220,7 @@ function ensureValidZipCode(input: string[]): SearchZip[] {
  * @returns `SearchCategory[]` list of validated SearchCategory objects
  * @throws ApifyInputError
  */
- function ensureValidCategoryInput(input: string[]): SearchCategory[] {
+function ensureValidCategoryInput(input: string[]): SearchCategory[] {
   var siteCategories: SearchCategory[] = [];
   for (var _i in input) {
     var _validated_category = getCraigslistCategory(input[_i]);
@@ -228,19 +229,40 @@ function ensureValidZipCode(input: string[]): SearchZip[] {
   return siteCategories;
 }
 
+function ensureValidQuery(input: string[]): string {
+  if (input.length === 0) return ''
+  var searchQuery: string = "(";
+  for (var i = 0; i < input.length; i++) {
+    var _validated_query = input[i];
+    searchQuery += _validated_query;
+    if (i < input.length - 1) searchQuery += ")|(";
+    if (i === input.length - 1) searchQuery += ")";
+  }
+  if (searchQuery == '()') return ''
+  return encodeURIComponent(searchQuery).replaceAll('(','%28').replace(')','%29');
+}
+
 /**
  *
  * @param input
  * @returns
  */
-export function validateInput(input: InputSchema): SearchCategory[] {
+export function validateInput(input: InputSchema): Search {
   var _definedInput = ensureDefinedInput(input);
   var _nonEmptyInput = ensureNonEmptyInput(_definedInput);
   var _validatedSitesInput = ensureValidSiteInput(_nonEmptyInput.site);
   var _validatedGeoLocationsInput = ensureValidGeoLocationInput(
     _nonEmptyInput.geoLocation
   );
-  var _validatedZipCodeInput = ensureValidZipCode(_definedInput.zipCode);
-  var _validated_categoryInput = ensureValidCategoryInput(_definedInput.category)
-  return _validated_categoryInput;
+  var _validatedZipCodeInput = ensureValidZipCode(_nonEmptyInput.zipCode);
+  var _validatedCategoryInput = ensureValidCategoryInput(
+    _nonEmptyInput.category
+  );
+  var _validatedQuery = ensureValidQuery(_nonEmptyInput.query);
+  return {
+    locations: _validatedSitesInput,
+    categories: _validatedCategoryInput,
+    query: _validatedQuery,
+    urls: _definedInput.urls
+  };
 }

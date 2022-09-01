@@ -98,4 +98,29 @@ var categoryValidationTestCases: InputSchema[] = [
   }
 ]
 
+var queryValidationTestCases: InputSchema[] = [
+  {
+    query: ['programmer', 'software & developer', 'software & engineer']
+  },
+  {
+    query: []
+  },
+  {
+    query: ['']
+  },
+  {
+    query: ['"SpecficText"']
+  },
+  {
+    query: ['WildC*rd']
+  },
+  {
+    query: ['bike -kids']
+  }
+]
+
+runTestCases(siteValidationTestCases);
+runTestCases(geoLocationValidationTestCases);
+runTestCases(zipCodeValidationTestCases);
 runTestCases(categoryValidationTestCases);
+runTestCases(queryValidationTestCases);
