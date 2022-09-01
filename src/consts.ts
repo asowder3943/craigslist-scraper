@@ -1,3 +1,8 @@
+/**
+ * Constants Associated With External APIs
+ */
+
+/** Enum of all Cragslist Subdomains */
 export const CRAIGSLIST_SITES: {[key: string]: {subdomain: string, name: string}} = {
   AUBURN: { subdomain: "auburn", name: "auburn" },
   BHAM: { subdomain: "bham", name: "birmingham" },
@@ -413,7 +418,7 @@ export const CRAIGSLIST_SITES: {[key: string]: {subdomain: string, name: string}
   WYOMING: { subdomain: "wyoming", name: "wyoming" },
 };
 
-
+/** Enum of all Craigslist Categories */
 export const CRAIGSLIST_CATEGORIES: {[key: string]: {tag: string, name: string, parent: string}} = {
   CCC: { tag: "ccc", name: "all-community", parent: "Community" },
   ACT: { tag: "act", name: "activities", parent: "Community" },

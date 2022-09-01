@@ -12,7 +12,8 @@ export type SearchDistance = {
  */
 export type SearchSite = { site: object };
 
-export function isSearchSite(obj: object): obj is SearchSite {
+/** TypeGuard for the SearchSite */
+export function isSearchSite(obj: unknown): obj is SearchSite {
   return (
     obj &&
     typeof obj === "object" &&
@@ -30,6 +31,7 @@ export function isSearchSite(obj: object): obj is SearchSite {
  */
 export type SearchZip = { zipCode: number } & SearchDistance;
 
+/** TypeGuard for the SearchZip */
 export function isSearchZip(obj: unknown): obj is SearchZip {
   return (
     obj &&
@@ -51,7 +53,7 @@ export type SearchGeoLocation = {
   longitude: number;
 } & SearchDistance;
 
-
+/** TypeGuard for the SearchGeoLocation */
 export function isSearchGeoLocation(obj: unknown): obj is SearchGeoLocation {
   return (
     obj &&
@@ -64,6 +66,7 @@ export function isSearchGeoLocation(obj: unknown): obj is SearchGeoLocation {
     typeof obj["distance"] !== null
   );
 }
+
 /**
  * Search Using Site, Zip Codes, or GeoLocations
  */

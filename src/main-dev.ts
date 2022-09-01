@@ -1,9 +1,14 @@
 import { InputSchema } from "./types.js";
 import { getRequestUrlsFromInput } from "./validation.js";
 import { crawler } from "./scraper-dev.js"
-var realWorld: InputSchema = {
+
+/** Input Working Test Case */
+const realWorld: InputSchema = {
   category: ["ggg"],
 };
 
-var urls = getRequestUrlsFromInput(realWorld)
+/** Urls Associated with working Test Case */
+const urls = getRequestUrlsFromInput(realWorld)
+
+// Run a Development Crawler with Test Urls
 crawler.run(urls)

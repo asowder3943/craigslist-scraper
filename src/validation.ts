@@ -41,6 +41,11 @@ function getCraigslistSite(input: string): object {
   return CRAIGSLIST_SITES[_matches[0][0]];
 }
 
+/**
+ * Retrieve Craigslist Category Object using match string
+ * @param input a single string to match against CRAIGSLIST_CATEGORIES enum
+ * @returns `object: {tag: string, name: string, parent: string}`
+ */
 function getCraigslistCategory(input: string): object {
   var _matches = Object.entries(CRAIGSLIST_CATEGORIES).filter(
     (x) => x[0] === input || x[1].tag === input || x[1].name === input
@@ -130,6 +135,7 @@ function ensureValidSiteInput(input: string[]): SearchSite[] {
  * Ensure all provided Geo Locations are valid and optional search distance parameters are in range
  * @param input list of comma separrated strings latitude, longitude, distance
  * @returns `SearchGeoLocation[]` list of validated GeoLocationSearch objects
+ * @throws ApifyInputError
  */
 function ensureValidGeoLocationInput(input: string[]): SearchGeoLocation[] {
   var geoLocations: SearchGeoLocation[] = [];
@@ -170,13 +176,11 @@ function ensureValidGeoLocationInput(input: string[]): SearchGeoLocation[] {
   return geoLocations;
 }
 
-// Unimplemented Validators
-// input.zip.length === 0 &&
-
 /**
  * Ensure all provided ZipCodes are valid and optional search distance parameters are in range
  * @param input list of zip code string inputs with optional distance parameter
  * @returns `SearchZip[]` A list of validated SearchZip objects
+ * @throws ApifyInputError
  */
 function ensureValidZipCode(input: string[]): SearchZip[] {
   var zipLocations: SearchZip[] = [];
@@ -229,7 +233,7 @@ function ensureValidCategoryInput(input: string[]): SearchCategory[] {
  * @returns `string` single validated query string
  */
 function ensureValidQuery(input: string[]): string {
-  if(input.length === 0) return ""
+  if (input.length === 0) return "";
   var _unescapedQuery: string = "(";
   for (var i = 0; i < input.length; i++) {
     var _currentQuery = input[i].trim();
@@ -255,9 +259,10 @@ function ensureValidQuery(input: string[]): string {
 }
 
 /**
- *
- * @param input
- * @returns
+ * Validates Each Section of Provided input Schema
+ * and returns Search Object
+ * @param input object of type `InputSchema`
+ * @returns Search Object
  */
 export function validateInput(input: InputSchema): Search {
   var _definedInput = ensureDefinedInput(input);
@@ -288,42 +293,52 @@ export function validateInput(input: InputSchema): Search {
   };
 }
 
-
-export function getRequestUrls(search: Search ): string[] {
+/**
+ * Get Generate Request Urls From Search Object
+ * @param search
+ * @returns
+ */
+export function getRequestUrls(search: Search): string[] {
   var urls: string[] = search.urls;
   for (var _loc in search.locations) {
-    var _curLocation = search.locations[_loc]
-    var _subdomain = 'auburn'
-    var _param_string = ''
+    var _curLocation = search.locations[_loc];
+    var _subdomain = "auburn";
+    var _param_string = "";
 
-    if (_curLocation.distance !== undefined && _curLocation.distance !== null) _param_string += `search_distance=${_curLocation.distance}`
-
+    if ("distance" in _curLocation) {
+      if (_curLocation.distance !== undefined && _curLocation.distance !== null)
+        _param_string += `search_distance=${_curLocation.distance}`;
+    }
+    
     if (isSearchSite(_curLocation)) {
-      _subdomain = _curLocation.site.subdomain
+      _subdomain = _curLocation.site.subdomain;
     }
 
     if (isSearchGeoLocation(_curLocation)) {
-      var _lat = _curLocation.latitude
-      var _long = _curLocation.longitude
-      _param_string += `&lat=${_lat}&lon=${_long}`
+      var _lat = _curLocation.latitude;
+      var _long = _curLocation.longitude;
+      _param_string += `&lat=${_lat}&lon=${_long}`;
     }
 
     if (isSearchZip(_curLocation)) {
-      var _zip = _curLocation.zipCode
-      _param_string += `&postal=${_zip}`
+      var _zip = _curLocation.zipCode;
+      _param_string += `&postal=${_zip}`;
     }
 
-    _param_string += `&query=${search.query}`
+    _param_string += `&query=${search.query}`;
 
     if (search.categories.length === 0) {
-      urls.push(`https://${_subdomain}.craigslist.org/?${_param_string}`)
-    } else for (var _cat in search.categories) {
-      urls.push(`https://${_subdomain}.craigslist.org/search/${search.categories[_cat].category.tag}/?${_param_string}`)
-    }
+      urls.push(`https://${_subdomain}.craigslist.org/?${_param_string}`);
+    } else
+      for (var _cat in search.categories) {
+        urls.push(
+          `https://${_subdomain}.craigslist.org/search/${search.categories[_cat].category.tag}/?${_param_string}`
+        );
+      }
   }
   return urls;
 }
 
-export function getRequestUrlsFromInput(input: InputSchema): string[]{
-  return getRequestUrls(validateInput(input))
+export function getRequestUrlsFromInput(input: InputSchema): string[] {
+  return getRequestUrls(validateInput(input));
 }
