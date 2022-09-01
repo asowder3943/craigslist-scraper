@@ -1,4 +1,5 @@
-import { InputSchema } from "./types";
+import { generateRequestUrls } from "./scraper.js";
+import { InputSchema } from "./types.js";
 import { validateInput, ApifyInputError } from "./validation.js";
 
 function runTestCases(cases: InputSchema[]) {
@@ -95,6 +96,9 @@ var queryValidationTestCases: InputSchema[] = [
     query: ['']
   },
   {
+    query: [' ', '   ']
+  },
+  {
     query: ['"SpecficText"']
   },
   {
@@ -102,6 +106,9 @@ var queryValidationTestCases: InputSchema[] = [
   },
   {
     query: ['bike -kids']
+  },
+  {
+    query: ['programmer', 'software & developer', 'software & engineer', 'coding', 'java', 'python', 'excel', 'vba'],
   }
 ]
 
@@ -111,7 +118,15 @@ var comboValidationTestCases: InputSchema[] = [
     geoLocation: ["32.609856, -85.480782", "32.609856, -85.480782, 12"],
     zipCode: ["22902", "24018, 12"],
     category: ['RRR', 'ggg'],
-    query: ['programmer', 'software & developer', 'software & engineer']
+    query: ['programmer', 'software & developer', 'software & engineer'],
+    urls: ['https://charlottesville.craigslist.org/search/msa?query=guitar&min_price=&max_price=100']
+  }
+]
+
+var realWorld: InputSchema[] = [
+  {
+    category: ['ggg'],
+    query: ['programmer', 'software & developer', 'software & engineer', 'coding', 'java'],
   }
 ]
 
@@ -121,3 +136,6 @@ runTestCases(zipCodeValidationTestCases);
 runTestCases(categoryValidationTestCases);
 runTestCases(queryValidationTestCases);
 runTestCases(comboValidationTestCases);
+
+console.log(generateRequestUrls(validateInput(comboValidationTestCases[0])))
+console.log(generateRequestUrls(validateInput(realWorld[0])))
