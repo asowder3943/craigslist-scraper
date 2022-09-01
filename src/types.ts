@@ -1,3 +1,5 @@
+import { ProxyConfigurationOptions } from "apify";
+
 export type CraigslistLocation = {
   subdomain: string,
   name: string
@@ -115,6 +117,11 @@ export type Search = {
  * @param urls as a list of strings
  */
 export type InputSchema = {
+  proxyConfiguration?: (ProxyConfigurationOptions & {useApifyProxy?: boolean | undefined;}) | undefined;
+  maxPagesPerCrawl?: any;
+  maxRequestRetries?: any;
+  maxConcurrency?: any;
+  proxyRotation?: any;
   site?: string[];
   geoLocation?: string[];
   zipCode?: string[];
