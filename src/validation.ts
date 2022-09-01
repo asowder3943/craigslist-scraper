@@ -9,7 +9,7 @@ import {
   Search
 } from "./types.js";
 import { CRAIGSLIST_SITES, CRAIGSLIST_CATEGORIES } from "./consts.js";
-
+import {DEFAULT_SEARCH_DISTANCE} from "./defauts.js"
 /**
  * ApifyInputError is a custom error class to address potentially invalid inputs
  * recieved through the Apify Actor Input Forms
@@ -104,6 +104,7 @@ function ensureValidDistanceInput(input: string): number {
     throw new ApifyInputError(`Provided Distance Out of Range: "${input}"\n
       distance should be greater than or equal to 0 miles, but not greater than 250 miles`);
   }
+  if (_distance == 0) _distance = DEFAULT_SEARCH_DISTANCE
   return _distance;
 }
 
@@ -153,7 +154,7 @@ function ensureValidGeoLocationInput(input: string[]): SearchGeoLocation[] {
       throw new ApifyInputError(`Provided Longitude Out of Range: "${_validated_long}"\n
         longitude should be greater than or equal to -180, but not greater than 180`);
     }
-    var _validated_distance = 0;
+    var _validated_distance = DEFAULT_SEARCH_DISTANCE;
     if (_params.length === 3) {
       _validated_distance = ensureValidDistanceInput(_params[2]);
     }
@@ -192,7 +193,7 @@ function ensureValidZipCode(input: string[]): SearchZip[] {
       throw new ApifyInputError(`Unable to parse ZipCode from: "${input}")\n
   ZipCode should be 5 digit numeric string`);
     }
-    var _validated_distance = 0;
+    var _validated_distance = DEFAULT_SEARCH_DISTANCE;
     if (_params.length === 2) {
       _validated_distance = ensureValidDistanceInput(_params[1]);
     }
