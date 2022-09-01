@@ -1,14 +1,21 @@
+import { Actor } from "apify";
+import { CrawlerSetup } from "./scraper.js";
 import { InputSchema } from "./types.js";
-import { getRequestUrlsFromInput } from "./validation.js";
-import { crawler } from "./scraper-dev.js"
 
-/** Input Working Test Case */
-const realWorld: InputSchema = {
+const __workingInputCase: InputSchema = {
   category: ["ggg"],
+  maxPagesPerCrawl: 10,
+  proxyConfiguration: {
+      useApifyProxy: false
+  },
 };
 
-/** Urls Associated with working Test Case */
-const urls = getRequestUrlsFromInput(realWorld)
-
-// Run a Development Crawler with Test Urls
-crawler.run(urls)
+await Actor.init();
+console.info("Loading input");
+console.info(__workingInputCase);
+console.info('Initializing Craigslist Crawler')
+const crawlerSetup = new CrawlerSetup(__workingInputCase!)
+const crawler = await crawlerSetup.getCrawler()
+console.info(`Crawler Initialization Complete: ${crawlerSetup.startUrls.length} urls have been added to the queue`)
+await crawler.run(crawlerSetup.startUrls)
+await Actor.exit();
