@@ -1,5 +1,5 @@
-## Support Craigslist Categories
-TAG | NAME | PARENT CATEGORY
+## Craigslist Categories
+Tag | Name | Parent Category
 ----|-------------|---------
 ccc | all-community | Community
 act | activities | Community
@@ -142,7 +142,7 @@ rrr | resumes | Resumes
 
 
 
-## Support Craigslist Categories
+## Craigslist Categories
 |SUBDOMAIN | NAME | 
 |----|-------|
 |auburn|auburn|
