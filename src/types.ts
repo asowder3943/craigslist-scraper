@@ -16,14 +16,16 @@ export type SearchSite = { site: object } & SearchDistance;
  * Search by Zip Code **only validated for US zip codes**
  * @param zipCode see [Zip Code Index](https://zipcodes.org/us-zip-codes) for supported codes
  */
-export type SearchZip = { zipCode
-  : number } & SearchDistance;
+export type SearchZip = { zipCode: number } & SearchDistance;
 /**
  * Search by GeoLocation
  * @param latitude should be from -85, 85 inclusive
  * @param longitude should be from -180, 180 inclusive
  */
-export type SearchGeoLocation = { latitude: Number; longitude: Number } & SearchDistance;
+export type SearchGeoLocation = {
+  latitude: Number;
+  longitude: Number;
+} & SearchDistance;
 
 /**
  * Search Using Site, Zip Codes, or GeoLocations
@@ -37,49 +39,37 @@ export type SearchLocation = SearchSite | SearchZip | SearchGeoLocation;
 export type SearchCategory = { category: object };
 
 /**
- * Search terms to include in craigslist search
- * @param term can be as simple as one word or use `|` and `&` as well as `()` to combine search terms
- */
-export type SearchTerm = { term: string };
-
-/**
- * Search Urls to include in craigslist search
- * @param url refers to precrafted craigslist search url
- */
-export type SearchUrl = { url: String };
-
-/**
- * Searches Consist of `locations`, `categories`, `terms`, and `urls`
+ * Searches Consist of `locations`, `categories`, `query`, and `urls`
  * At least One of these items must be defined to limit scope of the scraping
  * @param locations define where on craigslist to search
  * @param categories define what categories at each location to search
- * @param terms define the terms to be used in each search
+ * @param query define the query to be used in each search
  * @param urls provide predetermined page urls to be scraped
  */
 export type Search =
   | {
       locations?: SearchLocation[];
       categories?: SearchCategory | SearchCategory[];
-      terms?: SearchTerm[];
-      urls: SearchUrl[];
+      query?: string;
+      urls: string[];
     }
   | {
       locations?: SearchLocation[];
       categories?: SearchCategory[];
-      terms: SearchTerm[];
-      urls?: SearchUrl[];
+      query: string;
+      urls?: string[];
     }
   | {
       locations?: SearchLocation[];
       categories: SearchCategory[];
-      terms?: SearchTerm | SearchTerm[];
-      urls?: SearchUrl[];
+      query?: string;
+      urls?: string[];
     }
   | {
       locations: SearchLocation | SearchLocation[];
       categories?: SearchCategory[];
-      terms?: SearchTerm[];
-      urls?: SearchUrl[];
+      query?: string;
+      urls?: string[];
     };
 
 /**
@@ -121,7 +111,7 @@ export type DefinedInputSchema = {
 };
 
 /**
- * Craigslist Posts are Recorded with 
+ * Craigslist Posts are Recorded with
  * @param url as string
  * @param title as string
  * @param date as string
