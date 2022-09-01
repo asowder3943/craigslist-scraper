@@ -34,19 +34,19 @@ export type SearchLocation = SearchSite | SearchZip | SearchGeoLocation;
  * Search Using Site Categories
  * @param tag refers to the 3 character category tag at end of craigslist search urls, see [Category Tags](https://gist.github.com/asowder3943/8ef9512ad9c0daf87c721721e415c1a3)
  */
-type SearchCategory = { category: object };
+export type SearchCategory = { category: object };
 
 /**
  * Search terms to include in craigslist search
  * @param term can be as simple as one word or use `|` and `&` as well as `()` to combine search terms
  */
-type SearchTerm = { term: string };
+export type SearchTerm = { term: string };
 
 /**
  * Search Urls to include in craigslist search
  * @param url refers to precrafted craigslist search url
  */
-type SearchUrl = { url: String };
+export type SearchUrl = { url: String };
 
 /**
  * Searches Consist of `locations`, `categories`, `terms`, and `urls`
@@ -56,7 +56,7 @@ type SearchUrl = { url: String };
  * @param terms define the terms to be used in each search
  * @param urls provide predetermined page urls to be scraped
  */
-type Search =
+export type Search =
   | {
       locations?: SearchLocation[];
       categories?: SearchCategory | SearchCategory[];
