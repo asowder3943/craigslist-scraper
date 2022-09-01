@@ -1,3 +1,14 @@
+export type CraigslistLocation = {
+  subdomain: string,
+  name: string
+}
+
+export type CraigslistCategory = {
+  tag: string,
+  name: string,
+  parent: string
+}
+
 /**
  * Search an area within given Distance
  * @param radius The maximum distance from a given search location (in miles)
@@ -10,7 +21,7 @@ export type SearchDistance = {
  * Search By Craigslist Regional Sites
  * @param site the site subdomain for a craigslist region, see [Site Index](https://www.craigslist.org/about/sites)
  */
-export type SearchSite = { site: object };
+export type SearchSite = { site: CraigslistLocation };
 
 /** TypeGuard for the SearchSite */
 export function isSearchSite(obj: unknown): obj is SearchSite {
@@ -76,7 +87,7 @@ export type SearchLocation = SearchSite | SearchZip | SearchGeoLocation;
  * Search Using Site Categories
  * @param tag refers to the 3 character category tag at end of craigslist search urls, see [Category Tags](https://gist.github.com/asowder3943/8ef9512ad9c0daf87c721721e415c1a3)
  */
-export type SearchCategory = { category: object };
+export type SearchCategory = { category: CraigslistCategory };
 
 /**
  * Searches Consist of `locations`, `categories`, `query`, and `urls`

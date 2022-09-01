@@ -10,6 +10,8 @@ import {
   isSearchGeoLocation,
   isSearchSite,
   isSearchZip,
+  CraigslistCategory,
+  CraigslistLocation,
 } from "./types.js";
 import { CRAIGSLIST_SITES, CRAIGSLIST_CATEGORIES } from "./consts.js";
 import { DEFAULT_SEARCH_DISTANCE } from "./defauts.js";
@@ -30,7 +32,7 @@ export class ApifyInputError extends Error {
  * @param input a single string to match against CRAIGSLIST_SITES enum
  * @returns `object: {subdomain: string, name: string}`
  */
-function getCraigslistSite(input: string): object {
+function getCraigslistSite(input: string): CraigslistLocation {
   var _matches = Object.entries(CRAIGSLIST_SITES).filter(
     (x) => x[0] === input || x[1].subdomain === input || x[1].name === input
   );
@@ -46,7 +48,7 @@ function getCraigslistSite(input: string): object {
  * @param input a single string to match against CRAIGSLIST_CATEGORIES enum
  * @returns `object: {tag: string, name: string, parent: string}`
  */
-function getCraigslistCategory(input: string): object {
+function getCraigslistCategory(input: string): CraigslistCategory {
   var _matches = Object.entries(CRAIGSLIST_CATEGORIES).filter(
     (x) => x[0] === input || x[1].tag === input || x[1].name === input
   );
