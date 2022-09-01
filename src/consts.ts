@@ -559,3 +559,24 @@ export const CRAIGSLIST_CATEGORIES: {[key: string]: {tag: string, name: string, 
   WRG: { tag: "wrg", name: "writing", parent: "Gigs" },
   RRR: { tag: "rrr", name: "resumes", parent: "Resumes" },
 };
+
+
+/**
+ * Enum values used in the Proxy Rotation (proxyRotation) input option.
+ * Make sure those are always in sync!
+ * @type {{RECOMMENDED: 'RECOMMENDED', PER_REQUEST: 'PER_REQUEST', UNTIL_FAILURE: 'UNTIL_FAILURE'}}
+ */
+export const PROXY_ROTATION_NAMES = {
+  UNTIL_FAILURE: 'UNTIL_FAILURE',
+  PER_REQUEST: 'PER_REQUEST',
+  RECOMMENDED: 'RECOMMENDED',
+};
+/**
+* Max usage counts of a Session per different available proxy rotations.
+* @type {{ "UNTIL_FAILURE": number,  "PER_REQUEST": number, "RECOMMENDED": undefined}}
+*/
+export const SESSION_MAX_USAGE_COUNTS = {
+  [PROXY_ROTATION_NAMES.UNTIL_FAILURE]: 1000,
+  [PROXY_ROTATION_NAMES.PER_REQUEST]: 1,
+  [PROXY_ROTATION_NAMES.RECOMMENDED]: undefined,
+};
