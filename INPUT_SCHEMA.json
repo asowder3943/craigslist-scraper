@@ -8,7 +8,7 @@
       "sectionCaption": "Craigslist Search Sites",
       "title": "Regional Sites",
       "type": "array",
-      "prefill": ["aurburn", "roanoke, 20"],
+      "prefill": ["auburn", "dallas, 20"],
       "description": "The list of sub domains you would like to search in the form 'site, search radius (in miles)'",
       "editor": "stringList"
     },
