@@ -142,7 +142,7 @@ rrr | resumes | Resumes
 
 
 
-## Craigslist Categories
+## Craigslist Subdomains
 |SUBDOMAIN | NAME | 
 |----|-------|
 |auburn|auburn|
