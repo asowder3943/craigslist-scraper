@@ -43,7 +43,7 @@ export class CrawlerSetup {
           maxUsageCount: this.maxSessionUsageCount,
         },
       },
-      headless: false,
+      headless: true,
       requestHandler: async ({ page , request }) => {
         console.log(`Scraping ${await page.title()} | ${request.url}`);
 
@@ -83,10 +83,7 @@ export class CrawlerSetup {
           });
         }
         await Actor.pushData(_posts);
-        _posts.forEach(async (_post) => {await axios.post(process.env.API_URL!, _post).catch((error) => {
-          if( error.response ){
-              console.warn(error.response.data);
-          }
+        _posts.forEach(async (_post) => {await axios.post(process.env.API_URL!, _post).catch(() => {
       })})
       }
     })
