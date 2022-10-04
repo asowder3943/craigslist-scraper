@@ -73,9 +73,8 @@ export class CrawlerSetup {
           console.warn(`${AssertionError}`);
         }
 
-        var _posts: CraigslistPost[] = [];
-
-        for (var i = 0; i < _titles.length; i++) {
+        var _posts: CraigslistPost[] = []
+        for (var i in _titles) {
           _posts.push({
             url: _urls[i]!,
             title: _titles[i]!,
