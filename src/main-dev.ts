@@ -4,7 +4,7 @@ import { InputSchema } from "./types.js";
 import { Axios } from 'axios'
 const __workingInputCase: InputSchema = {
   category: ["ggg"],
-  maxPagesPerCrawl: 10,
+  maxPagesPerCrawl: 100,
   proxyConfiguration: {
       useApifyProxy: false
   },

@@ -83,7 +83,11 @@ export class CrawlerSetup {
           });
         }
         await Actor.pushData(_posts);
-        _posts.forEach(async (_post) => {await axios.post(process.env.API_URL!, _post)})
+        _posts.forEach(async (_post) => {await axios.post(process.env.API_URL!, _post).catch((error) => {
+          if( error.response ){
+              console.warn(error.response.data);
+          }
+      })})
       }
     })
   }
