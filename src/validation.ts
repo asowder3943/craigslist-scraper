@@ -248,12 +248,12 @@ function ensureValidQuery(input: string[]): string {
   var _escaped_query = encodeURIComponent(_unescapedQuery)
     .replaceAll("(", "%28")
     .replaceAll(")", "%29");
-  if (_escaped_query.split("%7C").length - 1 > 4)
-    throw new ApifyInputError(
-      `Too Many Union Conditions in Query: Current number of unions ${
-        _escaped_query.split("%7C").length - 1
-      }\nMaximum number of query union operators is 4`
-    );
+  // if (_escaped_query.split("%7C").length - 1 > 4)
+    // throw new ApifyInputError(
+    //   `Too Many Union Conditions in Query: Current number of unions ${
+    //     _escaped_query.split("%7C").length - 1
+    //   }\nMaximum number of query union operators is 4`
+    // );
   return _escaped_query;
 }
 
