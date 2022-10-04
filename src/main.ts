@@ -10,7 +10,4 @@ const crawlerSetup = new CrawlerSetup(input!)
 const crawler = await crawlerSetup.getCrawler()
 console.info(`Crawler Initialization Complete: ${crawlerSetup.startUrls.length} urls have been added to the queue`)
 await crawler.run(crawlerSetup.startUrls)
-console.info('testing push')
-
-
 await Actor.exit();

@@ -5,6 +5,7 @@
     "description": "An Actor that scrapes craigslist post data",
     "dependencies": {
         "apify": "^3.0.0",
+        "axios": "^1.0.0",
         "crawlee": "^3.0.0",
         "playwright": "*"
     },

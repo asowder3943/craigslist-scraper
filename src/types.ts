@@ -114,7 +114,7 @@ export type DefinedInputSchema = {
 /**
  * Craigslist Posts are Recorded with
  * @param url as string
- * @param title as string
- * @param date as string
+ * @param description as string
+ * @param created as string
  */
-export type CraigslistPost = { url: string; title: string; date: string };
+export type CraigslistPost = { url: string; description: string; created: string };

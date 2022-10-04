@@ -4,6 +4,7 @@ import { strict as assert } from "assert";
 import { CraigslistPost, InputSchema, Search } from "./types.js";
 import { validateInput, getRequestUrls } from "./validation.js";
 import { Actor } from "apify";
+import axios from "axios";
 
 export class CrawlerSetup {
 
@@ -77,11 +78,12 @@ export class CrawlerSetup {
         for (var i in _titles) {
           _posts.push({
             url: _urls[i]!,
-            title: _titles[i]!,
-            date: _dates[i]!,
+            description: _titles[i]!,
+            created: _dates[i]!,
           });
         }
         await Actor.pushData(_posts);
+        _posts.forEach(async (_post) => {await axios.post(process.env.API_URL, _post)})
       }
     })
   }
