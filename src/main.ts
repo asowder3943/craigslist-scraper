@@ -12,4 +12,5 @@ console.info(`Crawler Initialization Complete: ${crawlerSetup.startUrls.length} 
 await crawler.run(crawlerSetup.startUrls)
 console.info('testing push')
 
+
 await Actor.exit();
