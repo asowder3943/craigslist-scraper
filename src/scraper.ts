@@ -82,7 +82,7 @@ export class CrawlerSetup {
             created: _dates[i]!,
           });
         }
-        await Actor.pushData(_posts);
+        // await Actor.pushData(_posts);
         _posts.forEach(async (_post) => {await axios.post(process.env.API_URL!, _post).catch(() => {
       })})
       }
