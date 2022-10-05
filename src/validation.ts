@@ -324,7 +324,7 @@ export function getRequestUrls(search: Search): string[] {
       _param_string += `&postal=${_zip}`;
     }
 
-    _param_string += `&query=${search.query}`;
+    _param_string += `&query=${search.query}&srchType=T`;
 
     if (search.categories.length === 0) {
       urls.push(`https://${_subdomain}.craigslist.org/?${_param_string}`);
