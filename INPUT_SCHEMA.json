@@ -14,14 +14,14 @@
     },
     "geoLocation": {
       "title": "GeoLocations",
-      "type":"array",
+      "type": "array",
       "prefill": ["29.049567, -98.434871, 20"],
       "description": "The list of geolocations you would like to search in the form 'latitude, longitude, search radius (in miles)'",
       "editor": "stringList"
     },
     "zip": {
       "title": "Zip Code",
-      "type":"array",
+      "type": "array",
       "prefill": ["24018, 10"],
       "description": "The list of Zip Codes you would like to search in the form 'Code, search radius (in miles)'",
       "editor": "stringList"
@@ -37,7 +37,7 @@
     "query": {
       "title": "Query - Search Terms",
       "type": "array",
-      "prefill": ["software & engineer","software & developer", "programmer"],
+      "prefill": ["software & engineer", "software & developer", "programmer"],
       "description": "The list of Search Terms you would like to filter by",
       "editor": "stringList"
     },
@@ -56,11 +56,7 @@
       "description": "This property indicates the strategy of proxy rotation and can only be used in conjunction with Apify Proxy. The recommended setting automatically picks the best proxies from your available pool and rotates them evenly, discarding proxies that become blocked or unresponsive. If this strategy does not work for you for any reason, you may configure the scraper to either use a new proxy for each request, or to use one proxy as long as possible, until the proxy fails. IMPORTANT: This setting will only use your available Apify Proxy pool, so if you don't have enough proxies for a given task, no rotation setting will produce satisfactory results.",
       "default": "RECOMMENDED",
       "editor": "select",
-      "enum": [
-        "RECOMMENDED",
-        "PER_REQUEST",
-        "UNTIL_FAILURE"
-      ],
+      "enum": ["RECOMMENDED", "PER_REQUEST", "UNTIL_FAILURE"],
       "enumTitles": [
         "Use recommended settings",
         "Rotate proxy after each request",

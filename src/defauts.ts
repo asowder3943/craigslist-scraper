@@ -4,4 +4,4 @@
  */
 
 /** Search Radius cannot be zero or undefined Default is 20 miles */
-export const DEFAULT_SEARCH_DISTANCE: number = 20
+export const DEFAULT_SEARCH_DISTANCE: number = 20;

@@ -1,15 +1,15 @@
-import { ProxyConfigurationOptions } from "apify";
+import { ProxyConfigurationOptions } from 'apify';
 
 export type CraigslistLocation = {
-  subdomain: string,
-  name: string
-}
+  subdomain: string;
+  name: string;
+};
 
 export type CraigslistCategory = {
-  tag: string,
-  name: string,
-  parent: string
-}
+  tag: string;
+  name: string;
+  parent: string;
+};
 
 /**
  * Search an area within given Distance
@@ -40,7 +40,6 @@ export type SearchGeoLocation = {
   latitude: number;
   longitude: number;
 } & SearchDistance;
-
 
 /**
  * Search Using Site, Zip Codes, or GeoLocations
@@ -79,7 +78,9 @@ export type Search = {
  * @param urls as a list of strings
  */
 export type InputSchema = {
-  proxyConfiguration?: (ProxyConfigurationOptions & {useApifyProxy?: boolean | undefined;}) | undefined;
+  proxyConfiguration?:
+    | (ProxyConfigurationOptions & { useApifyProxy?: boolean | undefined })
+    | undefined;
   maxPagesPerCrawl?: any;
   maxRequestRetries?: any;
   maxConcurrency?: any;
@@ -117,4 +118,8 @@ export type DefinedInputSchema = {
  * @param description as string
  * @param created as string
  */
-export type CraigslistPost = { url: string; description: string; created: string };
+export type CraigslistPost = {
+  url: string;
+  description: string;
+  created: string;
+};

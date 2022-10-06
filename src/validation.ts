@@ -9,9 +9,9 @@ import {
   Search,
   CraigslistCategory,
   CraigslistLocation,
-} from "./types.js";
-import { CRAIGSLIST_SITES, CRAIGSLIST_CATEGORIES } from "./consts.js";
-import { DEFAULT_SEARCH_DISTANCE } from "./defauts.js";
+} from './types.js';
+import { CRAIGSLIST_SITES, CRAIGSLIST_CATEGORIES } from './consts.js';
+import { DEFAULT_SEARCH_DISTANCE } from './defauts.js';
 /**
  * ApifyInputError is a custom error class to address potentially invalid inputs
  * recieved through the Apify Actor Input Forms
@@ -30,14 +30,14 @@ export class ApifyInputError extends Error {
  * @returns `object: {subdomain: string, name: string}`
  */
 function getCraigslistSite(input: string): CraigslistLocation {
-  var _matches = Object.entries(CRAIGSLIST_SITES).filter(
-    (x) => x[0] === input || x[1].subdomain === input || x[1].name === input
+  var matches = Object.entries(CRAIGSLIST_SITES).filter(
+    (x) => x[0] === input || x[1].subdomain === input || x[1].name === input,
   );
-  if (_matches.length === 0) {
+  if (matches.length === 0) {
     throw new ApifyInputError(`Unable to determine intended site from input "${input}"\n
     provided site must match a subdomain or property name of an item on the list of [known sites](https://gist.github.com/asowder3943/b0c2c0339feb41a7bea9def472c1931d)`);
   }
-  return CRAIGSLIST_SITES[_matches[0][0]];
+  return CRAIGSLIST_SITES[matches[0][0]];
 }
 
 /**
@@ -46,14 +46,14 @@ function getCraigslistSite(input: string): CraigslistLocation {
  * @returns `object: {tag: string, name: string, parent: string}`
  */
 function getCraigslistCategory(input: string): CraigslistCategory {
-  var _matches = Object.entries(CRAIGSLIST_CATEGORIES).filter(
-    (x) => x[0] === input || x[1].tag === input || x[1].name === input
+  var matches = Object.entries(CRAIGSLIST_CATEGORIES).filter(
+    (x) => x[0] === input || x[1].tag === input || x[1].name === input,
   );
-  if (_matches.length === 0) {
+  if (matches.length === 0) {
     throw new ApifyInputError(`Unable to determine intended category from input "${input}"\n
     provided category must match a property of an item on the list of [known categories](https://gist.github.com/asowder3943/b0c2c0339feb41a7bea9def472c1931d)`);
   }
-  return CRAIGSLIST_CATEGORIES[_matches[0][0]];
+  return CRAIGSLIST_CATEGORIES[matches[0][0]];
 }
 
 /**
@@ -89,7 +89,7 @@ function ensureNonEmptyInput(input: DefinedInputSchema): DefinedInputSchema {
     input.urls.length === 0
   ) {
     throw new ApifyInputError(
-      "No Search Criteria found - You must provide at least one search option to limit webscraping scope"
+      'No Search Criteria found - You must provide at least one search option to limit webscraping scope',
     );
   }
   return input;
@@ -102,17 +102,19 @@ function ensureNonEmptyInput(input: DefinedInputSchema): DefinedInputSchema {
  * @throws `ApifyInputError`
  */
 function ensureValidDistanceInput(input: string): number {
-  var _distance = parseFloat(input);
-  if (Number.isNaN(_distance)) {
+  var distance = parseFloat(input);
+  if (Number.isNaN(distance)) {
     throw new ApifyInputError(`Unable to parse distance in miles from: "${input}")\n
   distance should be a numeric string with no commas deliniating powers of 10`);
   }
-  if (_distance < 0 || _distance > 250) {
+  if (distance < 0 || distance > 250) {
     throw new ApifyInputError(`Provided Distance Out of Range: "${input}"\n
       distance should be greater than or equal to 0 miles, but not greater than 250 miles`);
   }
-  if (_distance == 0) _distance = DEFAULT_SEARCH_DISTANCE;
-  return _distance;
+  if (distance == 0) {
+    distance = DEFAULT_SEARCH_DISTANCE;
+  }
+  return distance;
 }
 
 /**
@@ -123,9 +125,9 @@ function ensureValidDistanceInput(input: string): number {
  */
 function ensureValidSiteInput(input: string[]): SearchSite[] {
   var siteLocations: SearchSite[] = [];
-  for (var _i in input) {
-    var _validated_site = getCraigslistSite(input[_i]);
-    siteLocations.push({ site: _validated_site });
+  for (var i in input) {
+    var validatedSite = getCraigslistSite(input[i]);
+    siteLocations.push({ site: validatedSite });
   }
   return siteLocations;
 }
@@ -138,38 +140,38 @@ function ensureValidSiteInput(input: string[]): SearchSite[] {
  */
 function ensureValidGeoLocationInput(input: string[]): SearchGeoLocation[] {
   var geoLocations: SearchGeoLocation[] = [];
-  for (var _i in input) {
-    var _params = input[_i].split(",");
-    if (_params.length > 3 || _params.length < 2) {
-      throw new ApifyInputError(`Unable to parse "${input[_i]}" - wrong number of parameters provided\n
+  for (var i in input) {
+    var params = input[i].split(',');
+    if (params.length > 3 || params.length < 2) {
+      throw new ApifyInputError(`Unable to parse "${input[i]}" - wrong number of parameters provided\n
       input should be in the form \"latitude, longitude, distance\" or \"latitude, longitude\". Example: \"32.609856, -85.480782, 10\"`);
     }
-    var _validated_lat = parseFloat(_params[0]);
-    if (Number.isNaN(_validated_lat)) {
+    var validatedLatitude = parseFloat(params[0]);
+    if (Number.isNaN(validatedLatitude)) {
       throw new ApifyInputError(`Unable to parse latitude from: "${input}")\n
     latitude should be a numeric string with no commas deliniating powers of 10`);
     }
-    if (_validated_lat < -85 || _validated_lat > 85) {
-      throw new ApifyInputError(`Provided Latitude Out of Range: "${_validated_lat}"\n
+    if (validatedLatitude < -85 || validatedLatitude > 85) {
+      throw new ApifyInputError(`Provided Latitude Out of Range: "${validatedLatitude}"\n
         latitude should be greater than or equal to -85, but not greater than 85`);
     }
-    var _validated_long = parseFloat(_params[1]);
-    if (Number.isNaN(_validated_long)) {
+    var validatedLongitude = parseFloat(params[1]);
+    if (Number.isNaN(validatedLongitude)) {
       throw new ApifyInputError(`Unable to parse latitude from: "${input}")\n
     latitude should be a numeric string with no commas deliniating powers of 10`);
     }
-    if (_validated_long < -180 || _validated_long > 180) {
-      throw new ApifyInputError(`Provided Longitude Out of Range: "${_validated_long}"\n
+    if (validatedLongitude < -180 || validatedLongitude > 180) {
+      throw new ApifyInputError(`Provided Longitude Out of Range: "${validatedLongitude}"\n
         longitude should be greater than or equal to -180, but not greater than 180`);
     }
-    var _validated_distance = DEFAULT_SEARCH_DISTANCE;
-    if (_params.length === 3) {
-      _validated_distance = ensureValidDistanceInput(_params[2]);
+    var validatedDistance = DEFAULT_SEARCH_DISTANCE;
+    if (params.length === 3) {
+      validatedDistance = ensureValidDistanceInput(params[2]);
     }
     geoLocations.push({
-      latitude: _validated_lat,
-      longitude: _validated_long,
-      distance: _validated_distance,
+      latitude: validatedLatitude,
+      longitude: validatedLongitude,
+      distance: validatedDistance,
     });
   }
   return geoLocations;
@@ -183,29 +185,29 @@ function ensureValidGeoLocationInput(input: string[]): SearchGeoLocation[] {
  */
 function ensureValidZipCode(input: string[]): SearchZip[] {
   var zipLocations: SearchZip[] = [];
-  for (var _i in input) {
-    var _params = input[_i].split(",");
-    if (_params.length > 2 || _params.length < 1) {
-      throw new ApifyInputError(`Unable to parse "${input[_i]}" - wrong number of parameters provided\n
+  for (var i in input) {
+    var params = input[i].split(',');
+    if (params.length > 2 || params.length < 1) {
+      throw new ApifyInputError(`Unable to parse "${input[i]}" - wrong number of parameters provided\n
       input should be in the form \"zipCode, distance\" or \"zipCode\". Example: \"24018, 12\"`);
     }
-    var _validated_zip = parseInt(_params[0]);
+    var validatedZIP = parseInt(params[0]);
 
-    if (Number.isNaN(_validated_zip)) {
+    if (Number.isNaN(validatedZIP)) {
       throw new ApifyInputError(`Unable to parse ZipCode from: "${input}")\n
   ZipCode should be 5 digit numeric string`);
     }
-    if (_validated_zip.toString().length !== 5) {
+    if (validatedZIP.toString().length !== 5) {
       throw new ApifyInputError(`Unable to parse ZipCode from: "${input}")\n
   ZipCode should be 5 digit numeric string`);
     }
-    var _validated_distance = DEFAULT_SEARCH_DISTANCE;
-    if (_params.length === 2) {
-      _validated_distance = ensureValidDistanceInput(_params[1]);
+    var validatedDistance = DEFAULT_SEARCH_DISTANCE;
+    if (params.length === 2) {
+      validatedDistance = ensureValidDistanceInput(params[1]);
     }
     zipLocations.push({
-      zipCode: _validated_zip,
-      distance: _validated_distance,
+      zipCode: validatedZIP,
+      distance: validatedDistance,
     });
   }
   return zipLocations;
@@ -219,9 +221,9 @@ function ensureValidZipCode(input: string[]): SearchZip[] {
  */
 function ensureValidCategoryInput(input: string[]): SearchCategory[] {
   var siteCategories: SearchCategory[] = [];
-  for (var _i in input) {
-    var _validated_category = getCraigslistCategory(input[_i]);
-    siteCategories.push({ category: _validated_category });
+  for (var i in input) {
+    var validatedCategory = getCraigslistCategory(input[i]);
+    siteCategories.push({ category: validatedCategory });
   }
   return siteCategories;
 }
@@ -232,29 +234,35 @@ function ensureValidCategoryInput(input: string[]): SearchCategory[] {
  * @returns `string` single validated query string
  */
 function ensureValidQuery(input: string[]): string {
-  if (input.length === 0) return "";
-  var _unescapedQuery: string = "(";
-  for (var i = 0; i < input.length; i++) {
-    var _currentQuery = input[i].trim();
-    if (_currentQuery.length === 0)
-      throw new ApifyInputError(
-        `Invalid Empty Query Submitted, query cannot be empty string if provided`
-      );
-    _unescapedQuery += _currentQuery;
-    if (i < input.length - 1 && _currentQuery.length > 0)
-      _unescapedQuery += ")|(";
-    if (i === input.length - 1) _unescapedQuery += ")";
+  if (input.length === 0) {
+    return '';
   }
-  var _escaped_query = encodeURIComponent(_unescapedQuery)
-    .replaceAll("(", "%28")
-    .replaceAll(")", "%29");
+  var unescapedQuery: string = '(';
+  for (var i = 0; i < input.length; i++) {
+    var currentQuery = input[i].trim();
+    if (currentQuery.length === 0) {
+      throw new ApifyInputError(
+        `Invalid Empty Query Submitted, query cannot be empty string if provided`,
+      );
+    }
+    unescapedQuery += currentQuery;
+    if (i < input.length - 1 && currentQuery.length > 0) {
+      unescapedQuery += ')|(';
+    }
+    if (i === input.length - 1) {
+      unescapedQuery += ')';
+    }
+  }
+  var escapedQuery = encodeURIComponent(unescapedQuery)
+    .replaceAll('(', '%28')
+    .replaceAll(')', '%29');
   // if (_escaped_query.split("%7C").length - 1 > 4)
-    // throw new ApifyInputError(
-    //   `Too Many Union Conditions in Query: Current number of unions ${
-    //     _escaped_query.split("%7C").length - 1
-    //   }\nMaximum number of query union operators is 4`
-    // );
-  return _escaped_query;
+  // throw new ApifyInputError(
+  //   `Too Many Union Conditions in Query: Current number of unions ${
+  //     _escaped_query.split("%7C").length - 1
+  //   }\nMaximum number of query union operators is 4`
+  // );
+  return escapedQuery;
 }
 
 /**
@@ -264,31 +272,30 @@ function ensureValidQuery(input: string[]): string {
  * @returns Search Object
  */
 export function validateInput(input: InputSchema): Search {
-  var _definedInput = ensureDefinedInput(input);
-  var _nonEmptyInput = ensureNonEmptyInput(_definedInput);
-  var _validatedSitesInput = ensureValidSiteInput(_nonEmptyInput.site);
-  var _validatedGeoLocationsInput = ensureValidGeoLocationInput(
-    _nonEmptyInput.geoLocation
+  var definedInput = ensureDefinedInput(input);
+  var nonEmptyInput = ensureNonEmptyInput(definedInput);
+  var validatedSitesInput = ensureValidSiteInput(nonEmptyInput.site);
+  var validatedGeoLocationsInput = ensureValidGeoLocationInput(
+    nonEmptyInput.geoLocation,
   );
-  var _validatedZipCodeInput = ensureValidZipCode(_nonEmptyInput.zipCode);
-  var _validatedCategoryInput = ensureValidCategoryInput(
-    _nonEmptyInput.category
-  );
-  var _validatedQuery = ensureValidQuery(_nonEmptyInput.query);
-  var _validatedLocations: SearchLocation[] = _validatedSitesInput;
-  _validatedLocations = _validatedLocations.concat(_validatedGeoLocationsInput);
-  _validatedLocations = _validatedLocations.concat(_validatedZipCodeInput);
+  var validatedZipCodeInput = ensureValidZipCode(nonEmptyInput.zipCode);
+  var validatedCategoryInput = ensureValidCategoryInput(nonEmptyInput.category);
+  var validatedQuery = ensureValidQuery(nonEmptyInput.query);
+  var validatedLocations: SearchLocation[] = validatedSitesInput;
+  validatedLocations = validatedLocations.concat(validatedGeoLocationsInput);
+  validatedLocations = validatedLocations.concat(validatedZipCodeInput);
 
-  if (_validatedLocations.length === 0)
-    for (var _site in CRAIGSLIST_SITES) {
-      _validatedLocations.push({ site: CRAIGSLIST_SITES[_site] });
+  if (validatedLocations.length === 0) {
+    for (var site in CRAIGSLIST_SITES) {
+      validatedLocations.push({ site: CRAIGSLIST_SITES[site] });
     }
+  }
 
   return {
-    locations: _validatedLocations,
-    categories: _validatedCategoryInput,
-    query: _validatedQuery,
-    urls: _definedInput.urls,
+    locations: validatedLocations,
+    categories: validatedCategoryInput,
+    query: validatedQuery,
+    urls: definedInput.urls,
   };
 }
 
@@ -299,41 +306,46 @@ export function validateInput(input: InputSchema): Search {
  */
 export function getRequestUrls(search: Search): string[] {
   var urls: string[] = search.urls;
-  for (var _loc in search.locations) {
-    var _curLocation = search.locations[_loc];
-    var _subdomain = "auburn";
-    var _param_string = "";
+  for (var location in search.locations) {
+    var currentLocation = search.locations[location];
+    var subdomain = 'auburn';
+    var paramString = '';
 
-    if ("distance" in _curLocation) {
-      if (_curLocation.distance !== undefined && _curLocation.distance !== null)
-        _param_string += `search_distance=${_curLocation.distance}`;
-    }
-    
-    if ("site" in _curLocation) {
-      _subdomain = _curLocation.site.subdomain;
-    }
-
-    if ("latitude" in _curLocation) {
-      var _lat = _curLocation.latitude;
-      var _long = _curLocation.longitude;
-      _param_string += `&lat=${_lat}&lon=${_long}`;
+    if ('distance' in currentLocation) {
+      if (
+        currentLocation.distance !== undefined &&
+        currentLocation.distance !== null
+      ) {
+        paramString += `search_distance=${currentLocation.distance}`;
+      }
     }
 
-    if ("zipCode" in _curLocation) {
-      var _zip = _curLocation.zipCode;
-      _param_string += `&postal=${_zip}`;
+    if ('site' in currentLocation) {
+      subdomain = currentLocation.site.subdomain;
     }
 
-    _param_string += `&query=${search.query}&srchType=T`;
+    if ('latitude' in currentLocation) {
+      var latitude = currentLocation.latitude;
+      var longitude = currentLocation.longitude;
+      paramString += `&lat=${latitude}&lon=${longitude}`;
+    }
+
+    if ('zipCode' in currentLocation) {
+      var zip = currentLocation.zipCode;
+      paramString += `&postal=${zip}`;
+    }
+
+    paramString += `&query=${search.query}&srchType=T`;
 
     if (search.categories.length === 0) {
-      urls.push(`https://${_subdomain}.craigslist.org/?${_param_string}`);
-    } else
-      for (var _cat in search.categories) {
+      urls.push(`https://${subdomain}.craigslist.org/?${paramString}`);
+    } else {
+      for (var category in search.categories) {
         urls.push(
-          `https://${_subdomain}.craigslist.org/search/${search.categories[_cat].category.tag}/?${_param_string}`
+          `https://${subdomain}.craigslist.org/search/${search.categories[category].category.tag}/?${paramString}`,
         );
       }
+    }
   }
   return urls;
 }

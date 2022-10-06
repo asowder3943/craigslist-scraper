@@ -1,8 +1,6 @@
 {
     "recommendations": [
-        "ms-azuretools.vscode-docker",
-        "dbaeumer.vscode-eslint",
-        "rvest.vs-code-prettier-eslint",
-        "seatonjiang.gitmoji-vscode"
+		"dbaeumer.vscode-eslint",
+		"rvest.vs-code-prettier-eslint",
     ]
 }
