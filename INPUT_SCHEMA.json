@@ -19,7 +19,7 @@
       "description": "The list of geolocations you would like to search in the form 'latitude, longitude, search radius (in miles)'",
       "editor": "stringList"
     },
-    "zip": {
+    "zipCode": {
       "title": "Zip Code",
       "type": "array",
       "prefill": ["24018, 10"],
