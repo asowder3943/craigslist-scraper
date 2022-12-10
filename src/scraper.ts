@@ -82,7 +82,7 @@ export class CrawlerSetup {
         }
 
         // Save Data to Key Value Store
-        // await Actor.pushData(posts);
+        await Actor.pushData(posts);
         posts.forEach(async (post) => {
           await axios.post(process.env.API_URL!, post).catch(() => {});
         });
