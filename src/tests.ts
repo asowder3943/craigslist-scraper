@@ -138,9 +138,25 @@ var realWorld: InputSchema[] = [
   },
 ];
 
-runTestCases(siteValidationTestCases);
+var issue2022121001: InputSchema[] = [
+  {
+    category: ['sss'],
+    maxPagesPerCrawl: 1,
+    proxyConfiguration: {
+      useApifyProxy: true,
+      apifyProxyCountry: 'US',
+    },
+    proxyRotation: 'UNTIL_FAILURE',
+    query: ['computer'],
+    zipCode: ['22902'],
+    maxRequestRetries: 3,
+    maxConcurrency: 50,
+  },
+];
+
 runTestCases(geoLocationValidationTestCases);
 runTestCases(zipCodeValidationTestCases);
 runTestCases(categoryValidationTestCases);
 runTestCases(queryValidationTestCases);
 runTestCases(comboValidationTestCases);
+runTestCases(issue2022121001);
