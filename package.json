@@ -22,7 +22,7 @@
         "start:local": "node dist/main-local.js",
         "start:cloud": "node dist/main-cloud.js",
         "start:dev": "ts-node-esm -T src/main-dev.ts",
-        "build": "tsc",
+        "build": "tsc"
     },
     "author": "asowder3943",
     "license": "ISC"
