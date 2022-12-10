@@ -1,45 +1,41 @@
 {
-    "actorSpecification": 1,
-    "name": "apify-craigslist",
-    "title": "Actor for gathering data from Craigslist",
-    "description": "Displays current input (Hello World)",
-    "version": "0.0.1",
-    "storages": {
-        "dataset": {
-            "actorSpecification": 1,
-            "title": "posts",
-            "views": {
-                "posts": {
-                    "title": "posts",
-                    "transformation": {
-                        "fields": [
-                            "url",
-                            "title",
-                            "date"
-                        ]
-                    },
-                    "display": {
-                        "component": "table",
-                        "columns": [
-                            {
-                                "label": "url",
-                                "format": "string",
-                                "field": "url"
-                            },
-                            {
-                                "label": "title",
-                                "format": "string",
-                                "field": "title"
-                            },
-                            {
-                                "label": "date",
-                                "format": "string",
-                                "field": "date"
-                            }
-                        ]
-                    }
-                }
-            }
+  "actorSpecification": 1,
+  "name": "apify-craigslist",
+  "title": "Actor for gathering data from Craigslist",
+  "description": "Displays current input (Hello World)",
+  "version": "0.0.1",
+  "storages": {
+    "dataset": {
+      "actorSpecification": 1,
+      "title": "posts",
+      "views": {
+        "posts": {
+          "title": "posts",
+          "transformation": {
+            "fields": ["url", "title", "date"]
+          },
+          "display": {
+            "component": "table",
+            "columns": [
+              {
+                "label": "url",
+                "format": "string",
+                "field": "url"
+              },
+              {
+                "label": "title",
+                "format": "string",
+                "field": "title"
+              },
+              {
+                "label": "date",
+                "format": "string",
+                "field": "date"
+              }
+            ]
+          }
         }
+      }
     }
+  }
 }
