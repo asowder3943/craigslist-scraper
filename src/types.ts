@@ -1,4 +1,4 @@
-import { ProxyConfigurationOptions } from 'apify';
+import { ProxyConfigurationOptions } from "apify";
 
 export type CraigslistLocation = {
   subdomain: string;
@@ -91,6 +91,8 @@ export type InputSchema = {
   category?: string[];
   query?: string[];
   urls?: string[];
+  healthcheck?: string;
+  externalAPI?: string;
 };
 
 /**

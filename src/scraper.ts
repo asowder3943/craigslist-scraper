@@ -1,10 +1,10 @@
-import { PROXY_ROTATION_NAMES, SESSION_MAX_USAGE_COUNTS } from './consts.js';
-import { PlaywrightCrawler } from 'crawlee';
-import { strict as assert } from 'assert';
-import { CraigslistPost, InputSchema, Search } from './types.js';
-import { validateInput, getRequestUrls } from './validation.js';
-import { Actor } from 'apify';
-import axios from 'axios';
+import { PROXY_ROTATION_NAMES, SESSION_MAX_USAGE_COUNTS } from "./consts.js";
+import { PlaywrightCrawler } from "crawlee";
+import { strict as assert } from "assert";
+import { CraigslistPost, InputSchema, Search } from "./types.js";
+import { validateInput, getRequestUrls } from "./validation.js";
+import { Actor } from "apify";
+import axios from "axios";
 
 export class CrawlerSetup {
   name: string;
@@ -17,7 +17,7 @@ export class CrawlerSetup {
 
   constructor(input: InputSchema) {
     this.input = input;
-    this.name = 'Craigslist Playwright Scraper';
+    this.name = "Craigslist Playwright Scraper";
     this.search = validateInput(input);
     this.startUrls = getRequestUrls(this.search);
     this.maxSessionUsageCount = SESSION_MAX_USAGE_COUNTS[input.proxyRotation]!;
@@ -27,12 +27,14 @@ export class CrawlerSetup {
   }
 
   async getCrawler(): Promise<PlaywrightCrawler> {
+    await axios.get(this.input.healthcheck!);
+
     return new PlaywrightCrawler({
       maxConcurrency: this.input.maxConcurrency,
       maxRequestRetries: this.input.maxRequestRetries,
       maxRequestsPerCrawl: this.input.maxPagesPerCrawl,
       proxyConfiguration: await Actor.createProxyConfiguration(
-        this.input.proxyConfiguration,
+        this.input.proxyConfiguration
       ),
       useSessionPool: true,
       sessionPoolOptions: {
@@ -45,28 +47,28 @@ export class CrawlerSetup {
       requestHandler: async ({ page, request }) => {
         console.log(`Scraping ${await page.title()} | ${request.url}`);
 
-        const titles = await page.$$eval('.result-title', (els: any[]) => {
+        const titles = await page.$$eval(".result-title", (els: any[]) => {
           return els.map((el) => el.textContent);
         });
 
-        const urls = await page.$$eval('.result-title', (els: any[]) => {
-          return els.map((el) => el.getAttribute('href'));
+        const urls = await page.$$eval(".result-title", (els: any[]) => {
+          return els.map((el) => el.getAttribute("href"));
         });
 
-        const dates = await page.$$eval('.result-date', (els: any[]) => {
-          return els.map((el) => el.getAttribute('datetime'));
+        const dates = await page.$$eval(".result-date", (els: any[]) => {
+          return els.map((el) => el.getAttribute("datetime"));
         });
 
         try {
           assert.equal(
             titles.length,
             urls.length,
-            `The number of titles found does not match the number of urls found`,
+            `The number of titles found does not match the number of urls found`
           );
           assert.equal(
             urls.length,
             dates.length,
-            `The number of titles found does not match the number of urls found`,
+            `The number of titles found does not match the number of urls found`
           );
         } catch (AssertionError) {
           console.warn(`${AssertionError}`);
@@ -84,7 +86,7 @@ export class CrawlerSetup {
         // Save Data to Key Value Store
         await Actor.pushData(posts);
         posts.forEach(async (post) => {
-          await axios.post(process.env.API_URL!, post).catch(() => {});
+          await axios.post(this.input.externalAPI!, post).catch(() => {});
         });
       },
     });
