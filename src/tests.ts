@@ -1,3 +1,7 @@
+/**
+ * A series of Test cases meant to verify functionality across all supported search parameters
+ */
+
 import { InputSchema } from './types.js';
 import { ApifyInputError, getRequestUrlsFromInput } from './validation.js';
 

@@ -1,3 +1,7 @@
+/**
+ * Entrypoint for actor running in apify cloud environment
+ */
+
 import { Actor } from 'apify';
 import { CrawlerSetup } from './scraper.js';
 import { InputSchema } from './types.js';

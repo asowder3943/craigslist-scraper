@@ -1,3 +1,7 @@
+/**
+ * Validate Scraper Parameter input with a squite of various type and data checking
+ */
+
 import {
   InputSchema,
   DefinedInputSchema,

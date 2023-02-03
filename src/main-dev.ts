@@ -1,3 +1,7 @@
+/**
+ * Entrypoint for running in a local dev environment
+ */
+
 import { Actor } from 'apify';
 import { CrawlerSetup } from './scraper.js';
 import { InputSchema } from './types.js';

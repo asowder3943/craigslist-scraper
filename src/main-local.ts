@@ -1,7 +1,10 @@
+/**
+ * Entrypoint for Running in a Locally hosted environment
+ */
+
 import { Actor } from 'apify';
 import { CrawlerSetup } from './scraper.js';
 import { InputSchema } from './types.js';
-import { Axios } from 'axios';
 
 const workingInputCase: InputSchema = {
 	category: ['ggg'],

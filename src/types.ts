@@ -1,3 +1,7 @@
+/**
+ * Custom datatypes used by the craigslist scraper
+ *
+ */
 import { ProxyConfigurationOptions } from "apify";
 
 export type CraigslistLocation = {
