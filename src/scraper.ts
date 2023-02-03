@@ -4,9 +4,11 @@ import { strict as assert } from "assert";
 import { CraigslistPost, InputSchema, Search } from "./types.js";
 import { validateInput, getRequestUrls } from "./validation.js";
 import { Actor } from "apify";
-// import axios from "axios";
+import axios from "axios";
 
 export class CrawlerSetup {
+
+  // Provide typing information 
   name: string;
   search: Search;
   crawler!: PlaywrightCrawler | Promise<PlaywrightCrawler>;
@@ -15,6 +17,7 @@ export class CrawlerSetup {
   maxSessionUsageCount: number;
   maxPoolSize!: number;
 
+  // Construct Playwright scraper with input defining the scope of the search
   constructor(input: InputSchema) {
     this.input = input;
     this.name = "Craigslist Playwright Scraper";
@@ -27,7 +30,7 @@ export class CrawlerSetup {
   }
 
   async getCrawler(): Promise<PlaywrightCrawler> {
-    // await axios.get(this.input.healthcheck!);
+    await axios.get(this.input.healthcheck!);
 
     return new PlaywrightCrawler({
       maxConcurrency: this.input.maxConcurrency,
@@ -44,9 +47,11 @@ export class CrawlerSetup {
         },
       },
       headless: true,
+      // for each request preform the following:
       requestHandler: async ({ page, request }) => {
         console.log(`Scraping ${await page.title()} | ${request.url}`);
 
+        // collect important features from the current page including post titles, urls, and dates of posting
         const titles = await page.$$eval(".result-title", (els: any[]) => {
           return els.map((el) => el.textContent);
         });
@@ -59,6 +64,8 @@ export class CrawlerSetup {
           return els.map((el) => el.getAttribute("datetime"));
         });
 
+
+        // Sanity Check: Confirm the list of titles matched the number of dates and urls discovered
         try {
           assert.equal(
             titles.length,
@@ -74,6 +81,7 @@ export class CrawlerSetup {
           console.warn(`${AssertionError}`);
         }
 
+        // construct an array of Craigslist Post objects using the features collected from the page
         var posts: CraigslistPost[] = [];
         for (var i in titles) {
           posts.push({
@@ -85,9 +93,11 @@ export class CrawlerSetup {
 
         // Save Data to Key Value Store
         await Actor.pushData(posts);
+
+        // Send All posts to backend django server for analyses
         posts.forEach(async (post) => {
           console.log(post)
-          // await axios.post(this.input.externalAPI!, post).catch(() => {});
+          await axios.post(this.input.externalAPI!, post).catch(() => {});
         });
       },
     });
