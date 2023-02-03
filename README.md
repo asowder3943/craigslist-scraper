@@ -21,7 +21,8 @@ Scan craigslist for relevant posts and provides them to an external API
 ## Personal Note
 I love Craigslist. I used it to by my first car. I used it to furnash my first apartment. I used it to find one of my first farmhand jobs. I have even attempted to use it to track down my lost wallet. It is a simple site tied to a lot of great memories and great personal interactions. I am an avid user of the platform. Please be respectful if choosing to use this automation. May your requests be efficient and as infrequent as possible. 
 
-![image](https://user-images.githubusercontent.com/13119103/216713275-a738b22e-16c2-46a2-bfbb-8bdf6595301a.png)
+<img width="960" alt="image" src="https://user-images.githubusercontent.com/13119103/216713547-eade2492-40e1-460c-810f-22f7d67183e3.png">
+
 First Craigslist Car: cost me $300 and a TV
 
 ## Craigslist Categories
