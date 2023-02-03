@@ -1,12 +1,23 @@
 # Craigslist Scraper V3
 
-A scraper that scans craigslist for relevant posts and provides them to an external API
-Define a search across any numnber of categories, geographic radi, search terms, etc.
-Leverage Apify online orchestration to preform browser automations in a cloud environment or on a local docker container. 
-Recieve downtime notifications using external Healthcheck api.
-Includes tests for verifying functionality of all supported search parameters.
-Includes custom typing for all dataclasses.
-Includes recommended vscode extensions for quick onboarding of potential contributors.
+Scan craigslist for relevant posts and provides them to an external API
+- Define a search across any numnber of categories, geographic radi, search terms, etc.
+- Leverage Apify online orchestration to preform browser automations in a cloud environment or on a local docker container. 
+- Recieve downtime notifications using external Healthcheck api.
+- Includes tests for verifying functionality of all supported search parameters.
+- Includes custom typing for all dataclasses.
+- Includes recommended vscode extensions for quick onboarding of potential contributors.
+
+
+## Example Use Cases
+- Custom Craigslist Clients
+- Custom RSS feed Generation
+- Lead Generation
+- Scam investigations
+
+## Example Output
+<img width="665" alt="image" src="https://user-images.githubusercontent.com/13119103/216701935-42c5188d-8f1f-4111-afac-f3caa1e8e500.png">
+
 
 ## Craigslist Categories
 
