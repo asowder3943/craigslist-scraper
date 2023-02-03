@@ -4,7 +4,7 @@ import { strict as assert } from "assert";
 import { CraigslistPost, InputSchema, Search } from "./types.js";
 import { validateInput, getRequestUrls } from "./validation.js";
 import { Actor } from "apify";
-import axios from "axios";
+// import axios from "axios";
 
 export class CrawlerSetup {
   name: string;
@@ -27,7 +27,7 @@ export class CrawlerSetup {
   }
 
   async getCrawler(): Promise<PlaywrightCrawler> {
-    await axios.get(this.input.healthcheck!);
+    // await axios.get(this.input.healthcheck!);
 
     return new PlaywrightCrawler({
       maxConcurrency: this.input.maxConcurrency,
@@ -86,7 +86,8 @@ export class CrawlerSetup {
         // Save Data to Key Value Store
         await Actor.pushData(posts);
         posts.forEach(async (post) => {
-          await axios.post(this.input.externalAPI!, post).catch(() => {});
+          console.log(post)
+          // await axios.post(this.input.externalAPI!, post).catch(() => {});
         });
       },
     });
