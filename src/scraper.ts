@@ -62,8 +62,11 @@ export class CrawlerSetup {
         });
 
         const dates = await page.$$eval(".meta", (els: any[]) => {
-          return els.map( (el) => {
-            return el.getInnerHTML().substring(13,el.getInnerHTML().search(/Time/)-20)
+          return els.map((el) => {
+            let ih =  el.getInnerHTML()
+            let ub = ih.search(/\(/)
+            let created = new Date(ih.substring(13,ub-1))
+            return JSON.stringify(created)
           });
         });
 
@@ -88,9 +91,9 @@ export class CrawlerSetup {
         var posts: CraigslistPost[] = [];
         for (var i in titles) {
           posts.push({
-            url: urls[i]!,
-            description: titles[i]!,
-            created: dates[i]!,
+            url: await urls[i]!,
+            description: await titles[i]!,
+            created: await dates[i]!,
           });
           console.info(posts)
         }
@@ -100,7 +103,7 @@ export class CrawlerSetup {
 
         // Send All posts to backend django server for analyses
         posts.forEach(async (post) => {
-          console.log(post)
+          await console.log(post)
           // await axios.post(this.input.externalAPI!, post).catch(() => {});
         });
       },
