@@ -30,7 +30,7 @@ export class CrawlerSetup {
   }
 
   async getCrawler(): Promise<PlaywrightCrawler> {
-    // await axios.get(this.input.healthcheck!);
+    await axios.get(this.input.healthcheck!).catch(() => {});
 
     return new PlaywrightCrawler({
       maxConcurrency: this.input.maxConcurrency,
@@ -104,7 +104,7 @@ export class CrawlerSetup {
         // Send All posts to backend django server for analyses
         posts.forEach(async (post) => {
           await console.log(post)
-          // await axios.post(this.input.externalAPI!, post).catch(() => {});
+          await axios.post(this.input.externalAPI!, post).catch(() => {});
         });
       },
     });
