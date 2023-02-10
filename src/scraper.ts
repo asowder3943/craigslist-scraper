@@ -66,7 +66,7 @@ export class CrawlerSetup {
             let ih =  el.getInnerHTML()
             let ub = ih.search(/\(/)
             let created = new Date(ih.substring(13,ub-1))
-            return JSON.stringify(created)
+            return JSON.stringify(created).replace(/\\/g, '').replace(/"/g,'')
           });
         });
 
