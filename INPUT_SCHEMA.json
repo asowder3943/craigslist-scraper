@@ -45,13 +45,13 @@
       "title": "HealthChecks.io Endpoint",
       "type": "string",
       "description": "Include a healthchecks.io url endpoint to fetch at the beginning of this run",
-      "editor": "string"
+      "editor": "textfield"
     },
     "externalAPI": {
       "title": "External API",
       "type": "string",
       "description": "Include a url for API endpoint to forward the results of this run",
-      "editor": "string"
+      "editor": "textfield"
     },
     "proxyConfiguration": {
       "sectionCaption": "Proxy and browser configuration",
