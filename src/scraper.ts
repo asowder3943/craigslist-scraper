@@ -30,7 +30,7 @@ export class CrawlerSetup {
   }
 
   async getCrawler(): Promise<PlaywrightCrawler> {
-    await axios.get(this.input.healthcheck!);
+    // await axios.get(this.input.healthcheck!);
 
     return new PlaywrightCrawler({
       maxConcurrency: this.input.maxConcurrency,
@@ -52,16 +52,19 @@ export class CrawlerSetup {
         console.log(`Scraping ${await page.title()} | ${request.url}`);
 
         // collect important features from the current page including post titles, urls, and dates of posting
-        const titles = await page.$$eval(".result-title", (els: any[]) => {
+        const titles = await page.$$eval(".titlestring", (els: any[]) => {
           return els.map((el) => el.textContent);
         });
 
-        const urls = await page.$$eval(".result-title", (els: any[]) => {
+
+        const urls = await page.$$eval(".titlestring", (els: any[]) => {
           return els.map((el) => el.getAttribute("href"));
         });
 
-        const dates = await page.$$eval(".result-date", (els: any[]) => {
-          return els.map((el) => el.getAttribute("datetime"));
+        const dates = await page.$$eval(".meta", (els: any[]) => {
+          return els.map( (el) => {
+            return el.getInnerHTML().substring(13,el.getInnerHTML().search(/Time/)-20)
+          });
         });
 
 
@@ -89,6 +92,7 @@ export class CrawlerSetup {
             description: titles[i]!,
             created: dates[i]!,
           });
+          console.info(posts)
         }
 
         // Save Data to Key Value Store
@@ -97,7 +101,7 @@ export class CrawlerSetup {
         // Send All posts to backend django server for analyses
         posts.forEach(async (post) => {
           console.log(post)
-          await axios.post(this.input.externalAPI!, post).catch(() => {});
+          // await axios.post(this.input.externalAPI!, post).catch(() => {});
         });
       },
     });
